@@ -2,7 +2,7 @@ import Footer from "../../Footer";
 import CommonButtonborder from "../HomeComponent/CommonButtonborder";
 import CommonHading from "../HomeComponent/CommonHading";
 import { FaCarSide } from "react-icons/fa";
-
+import "../../Home/HomeComponent/banner.css";
 const AboutUs = () => {
   return (
     <>
