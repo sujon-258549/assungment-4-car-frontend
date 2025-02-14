@@ -20,7 +20,7 @@ export default function Slider() {
         }}
         // add auto aplay cod
         autoplay={{
-          delay: 24000,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         loop={true}
