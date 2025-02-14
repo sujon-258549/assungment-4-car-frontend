@@ -2,7 +2,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
+// @ts-expect-error css
 import "swiper/css";
+// @ts-expect-error css
 import "swiper/css/pagination";
 
 // add auto play cod

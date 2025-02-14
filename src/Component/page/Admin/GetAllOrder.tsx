@@ -68,6 +68,11 @@ const GetAllOrder = () => {
       ),
     },
     {
+      title: "Email",
+      dataIndex: ["user", "email"], // Corrected to access the user.email
+      key: "email", // Unique key for this column
+    },
+    {
       title: "Product Brand",
       dataIndex: ["products", 0, "car", "brand"],
       key: "brand",
