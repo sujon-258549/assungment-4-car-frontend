@@ -1,0 +1,34 @@
+/* .header ul li {
+  position: relative;
+}
+.header .active:active {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 150px;
+  color: black;
+} */
+.header ul li a {
+  position: relative;
+}
+
+.header ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Adjust as needed */
+  width: 0%; /* Initially hidden */
+  height: 3px; /* Thickness of the underline */
+  background-color: rgb(8, 18, 18);
+  transition: width 0.4s ease-in-out;
+}
+
+.header ul li a:hover::after {
+  width: 100%; /* Expands on hover */
+}
+
+.header .active {
+  border-bottom: 3px solid rgb(8, 18, 18);
+  color: rgb(8, 18, 18);
+}
