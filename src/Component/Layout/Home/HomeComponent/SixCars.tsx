@@ -7,6 +7,7 @@ import CommonButton from "./CommonButton";
 import { Link } from "react-router-dom";
 const SixCars = () => {
   const { data: carData, isLoading } = useGetAllCarQuery(undefined);
+
   if (isLoading) {
     return <Loder />;
   }
