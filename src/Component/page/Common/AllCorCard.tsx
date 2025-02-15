@@ -32,7 +32,6 @@ const AllCorCard = () => {
   useEffect(() => {
     setLimit(carData?.meta?.limit);
   }, [carData, setLimit]);
-  console.log(meta);
   if (isLoading) {
     return <Loder />;
   }
