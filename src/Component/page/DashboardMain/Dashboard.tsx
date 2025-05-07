@@ -1,12 +1,12 @@
 import { useCurrentUser } from "@/redux/features/assignment4/authSlice";
 import { useAppSelector } from "@/redux/hooks";
-import GetAllUser from "../Admin/GetAllUser";
-import StudentDashboard from "./StudentDashboard";
+import { ShopDashboard } from "./ShopDashboard";
+import { UserDashboard } from "./UserDashboard";
 
 const Dashboard = () => {
   const user = useAppSelector(useCurrentUser);
   const role = user?.role;
-  return <div>{role === "admin" ? <GetAllUser /> : <StudentDashboard />}</div>;
+  return <div>{role === "admin" ? <ShopDashboard /> : <UserDashboard />}</div>;
 };
 
 export default Dashboard;

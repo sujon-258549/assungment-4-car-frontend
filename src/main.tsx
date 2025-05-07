@@ -13,6 +13,6 @@ createRoot(document.getElementById("root")!).render(
       <PersistGate loading={null} persistor={persistor}></PersistGate>
       <RouterProvider router={router}></RouterProvider>
     </Provider>
-    <Toaster />
+    <Toaster position="top-center" />
   </StrictMode>
 );

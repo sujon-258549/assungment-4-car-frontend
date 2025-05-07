@@ -7,6 +7,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/features/assignment4/authSlice";
 import { varyFyToken } from "@/Component/Utils/decodeJwt";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -14,10 +15,33 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
 
   const [isPasswordShowHide, setIsPasswordShowHide] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
+  const DEMO_CREDENTIALS = {
+    USER: {
+      email: "user@gmail.com",
+      password: "Pa$$w0rd!",
+      role: "User",
+    },
+    ADMIN: {
+      email: "sujon1@gmail.com",
+      password: "Pa$$w0rd!",
+      role: "Admin",
+    },
+  };
 
+  const fillDemoCredentials = (credentials: {
+    email: string;
+    password: string;
+    role: string;
+  }) => {
+    setValue("email", credentials.email);
+    setValue("password", credentials.password);
+    toast.info(
+      `Demo ${credentials.role} credentials filled. Click Login to continue.`
+    );
+  };
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Creating.............");
+    const toastId = toast.loading("Login.............");
     const userInfo = {
       email: data.email,
       password: data.password,
@@ -38,7 +62,7 @@ const LoginForm = () => {
     <div className="px-5">
       <section
         style={{ boxShadow: "10px 10px 10px" }}
-        className="my-20 p-10 text-[#333] max-w-[450px] px-4 md:px-8 rounded-md mx-auto border"
+        className="my-20 p-10 text-[#333] max-w-[500px] px-4 md:px-8 rounded-md mx-auto border"
       >
         <h2 className="text-2xl pb-10 text-center font-bold md:text-4xl">
           Login Form
@@ -83,7 +107,32 @@ const LoginForm = () => {
             Submit
           </button>
         </form>
+        <div className="mt-6">
+          <div className="relative mb-4">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-2 text-sm text-gray-500 dark:bg-black dark:text-gray-400">
+                Or try demo accounts
+              </span>
+            </div>
+          </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {Object.entries(DEMO_CREDENTIALS).map(([key, value]) => (
+              <Button
+                key={key}
+                type="button"
+                variant="outline"
+                onClick={() => fillDemoCredentials(value)}
+                className="bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+              >
+                Demo {value.role}
+              </Button>
+            ))}
+          </div>
+        </div>
         <p className="md:text-[15px] font-medium mt-5 text-center">
           Don't have an account?{" "}
           <Link

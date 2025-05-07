@@ -1,26 +1,19 @@
 import { useState } from "react";
 import Footerimg from "./Footerimg";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { MdOutlineLogin } from "react-icons/md";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import "./header.css";
-import {
-  logOut,
-  TUser,
-  useCurrentUser,
-} from "@/redux/features/assignment4/authSlice";
+import { TUser, useCurrentUser } from "@/redux/features/assignment4/authSlice";
 import CommonButton from "./Home/HomeComponent/CommonButton";
+import DropdownProfile from "./DropdownProfile";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const userRole = useAppSelector(useCurrentUser) as TUser;
-  const navigate = useNavigate();
+
   const email = userRole?.email;
-  const dispatch = useAppDispatch();
-  const handelLogout = () => {
-    dispatch(logOut());
-    navigate("/login");
-  };
+
   return (
     <section
       style={{ zIndex: "999" }}
@@ -72,16 +65,6 @@ const Header = () => {
                   Home
                 </NavLink>
               </li>
-              {email && (
-                <li className="max-lg:border-b max-lg:py-3 px-3">
-                  <NavLink
-                    to="/dashboard"
-                    className=" text-gray-600 font-bold block text-base"
-                  >
-                    Dashboard
-                  </NavLink>
-                </li>
-              )}
               <li className="max-lg:border-b max-lg:py-3 px-3">
                 <NavLink
                   to={"/about-us"}
@@ -104,10 +87,10 @@ const Header = () => {
           {/* Right Section (Login & Menu Toggle) */}
           <div className="flex items-center max-lg:ml-auto space-x-4">
             {email ? (
-              <div>
-                <button onClick={handelLogout}>
-                  <CommonButton btnIcon={<MdOutlineLogin />} text="Log Out" />
-                </button>
+              <div className="flex gap-1 items-center">
+                <div className="">
+                  <DropdownProfile />
+                </div>
               </div>
             ) : (
               <Link to={"/login"}>

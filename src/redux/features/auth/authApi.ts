@@ -48,6 +48,25 @@ const authApi = baseApi.injectEndpoints({
         return response.data; // Assuming the response contains the car data
       },
     }),
+    getMe: builder.query({
+      query: () => ({
+        url: `/user/me`,
+        method: "GET",
+      }),
+      transformResponse: (response: any) => {
+        return response.data;
+      },
+      // providesTags: ["me"],
+      providesTags: ["cars"],
+    }),
+    updateUser: builder.mutation({
+      query: (userInfo) => ({
+        url: "/user",
+        method: "PUT",
+        body: userInfo,
+      }),
+      invalidatesTags: ["cars"],
+    }),
   }),
 });
 
@@ -56,4 +75,6 @@ export const {
   useRegistrationMutation,
   useGetSingleUserQuery,
   useGetAllUserQuery,
+  useGetMeQuery,
+  useUpdateUserMutation,
 } = authApi;
