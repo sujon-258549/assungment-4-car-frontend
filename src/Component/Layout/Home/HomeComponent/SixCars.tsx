@@ -1,15 +1,15 @@
 import { useGetAllCarQuery } from "@/redux/features/auth/Admin/product";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import "./style.css";
-import Loder from "@/Component/Utils/Loder";
 import CommonHading from "./CommonHading";
 import CommonButton from "./CommonButton";
 import { Link } from "react-router-dom";
+import Loader from "@/Component/Utils/Loader";
 const SixCars = () => {
   const { data: carData, isLoading } = useGetAllCarQuery(undefined);
 
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   return (

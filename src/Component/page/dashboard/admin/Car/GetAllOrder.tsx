@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllOrderQuery } from "@/redux/features/auth/Admin/product";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import Loder from "@/Component/Utils/Loder";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
 import { Table, Button, Modal } from "antd";
+import Loader from "@/Component/Utils/Loader";
 
 interface CarData {
   _id: string;
@@ -46,7 +46,7 @@ const GetAllOrder = () => {
   }, [carData]);
 
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   const showModal = (order: CarData) => {

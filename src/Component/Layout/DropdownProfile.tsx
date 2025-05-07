@@ -13,7 +13,7 @@ import { logOut } from "@/redux/features/assignment4/authSlice";
 import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useGetMeQuery } from "@/redux/features/auth/authApi";
-import Loder from "../Utils/Loder";
+import Loader from "../Utils/Loader";
 const DropdownProfile = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const DropdownProfile = () => {
 
   const { data: meData, isLoading } = useGetMeQuery("me");
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
   return (
     <div>

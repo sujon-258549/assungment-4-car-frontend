@@ -1,4 +1,4 @@
-import Loder from "@/Component/Utils/Loder";
+import Loader from "@/Component/Utils/Loader";
 import { useVarefyPaymentQuery } from "@/redux/features/auth/Admin/product";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const VarefyPreempt = () => {
   );
 
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   const paymentData = data?.data[0];

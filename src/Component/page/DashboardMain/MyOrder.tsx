@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetMyOrderQuery } from "@/redux/features/auth/Admin/product";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import Loder from "@/Component/Utils/Loder";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
 import { Table, Button, Modal } from "antd";
+import Loader from "@/Component/Utils/Loader";
 
 // Define types for API response
 interface CarData {
@@ -43,7 +43,7 @@ const MyOrder = () => {
   }, [carData]);
 
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   // Open modal and set selected order

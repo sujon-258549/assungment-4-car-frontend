@@ -16,8 +16,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAppDispatch } from "@/redux/hooks";
 import { logOut } from "@/redux/features/assignment4/authSlice";
-import Loder from "@/Component/Utils/Loder";
 import { useGetMeQuery } from "@/redux/features/auth/authApi";
+import Loader from "@/Component/Utils/Loader";
 
 type MenuItem = {
   path: string;
@@ -74,14 +74,14 @@ const Sidebar = () => {
       icon: <Car className="w-5 h-5" />,
       items: [
         {
-          path: "/dashboard/create-car",
+          path: "/dashboard/create-blog",
           label: "Create Blogs",
           icon: (
             <span className="w-4 h-4 flex items-center justify-center">+</span>
           ),
         },
         {
-          path: "/dashboard/all-car",
+          path: "/dashboard/all-blog",
           label: "All Blogs",
           icon: <List className="w-4 h-4" />,
         },
@@ -142,7 +142,7 @@ const Sidebar = () => {
   };
 
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   return (

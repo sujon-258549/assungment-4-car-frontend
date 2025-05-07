@@ -24,8 +24,8 @@ import {
   Col,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import Loder from "@/Component/Utils/Loder";
 import { updateUserSchema } from "./updateUser.validaction";
+import Loader from "@/Component/Utils/Loader";
 
 type FormValues = z.infer<typeof updateUserSchema>;
 
@@ -62,7 +62,7 @@ const UpdateUser = () => {
   }, [meData, form]);
 
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   const onFinish: SubmitHandler<FormValues> = async (data) => {

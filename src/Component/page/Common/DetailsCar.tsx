@@ -1,5 +1,5 @@
 import CommonButton from "@/Component/Layout/Home/HomeComponent/CommonButton";
-import Loder from "@/Component/Utils/Loder";
+import Loader from "@/Component/Utils/Loader";
 import {
   useCreateOrdersMutation,
   useGetSingleCarQuery,
@@ -58,7 +58,7 @@ const DetailsCar = () => {
 
   // Loading and error states
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
 
   if (error) {

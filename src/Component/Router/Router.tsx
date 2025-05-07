@@ -5,20 +5,24 @@ import Registration from "../page/LoginFrom/Registration";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "../Layout/Home/Home";
 import Contact from "../page/Contect/Contact";
-import CreateCar from "../page/Admin/CreateCar";
+import CreateCar from "../page/dashboard/admin/Car/CreateCar";
 import AllCorCard from "../page/Common/AllCorCard";
 import DetailsCar from "../page/Common/DetailsCar";
 import AboutUs from "../Layout/Home/About/AboutUs";
-import GetAllCar from "../page/Admin/GetAllCar";
-import UpdateCar from "../page/Admin/UpdateCar";
+import GetAllCar from "../page/dashboard/admin/Car/GetAllCar";
+import UpdateCar from "../page/dashboard/admin/Car/UpdateCar";
 import ChangePassword from "../page/LoginFrom/ChangePassword";
 import Dashboard from "../page/DashboardMain/Dashboard";
 import VarefyPreempt from "../page/DashboardMain/VarefyPreempt";
 import MyOrder from "../page/DashboardMain/MyOrder";
-import GetAllOrder from "../page/Admin/GetAllOrder";
+import GetAllOrder from "../page/dashboard/admin/Car/GetAllOrder";
 import Sidebar from "../page/sideber/Sidebar";
 import Profile from "../page/dashboard/common/Profile";
 import UpdateUser from "../page/LoginFrom/UpdateUser";
+import CreateBlog from "../page/dashboard/admin/Blog/CreateBlog";
+import AdminBlog from "../page/dashboard/admin/Blog/AdminBlog";
+import DetailsBlog from "../page/dashboard/admin/Blog/DetalBlog";
+import UpdateBlog from "../page/dashboard/admin/Blog/UpdateBlog";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +40,7 @@ export const router = createBrowserRouter([
       {
         path: "/varefy-payment",
         element: (
-          <ProtectedRoute role="user">
+          <ProtectedRoute role={["admin"]}>
             {" "}
             <VarefyPreempt />
           </ProtectedRoute>
@@ -53,6 +57,14 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: `details-blog/:id`,
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <DetailsBlog />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -80,7 +92,7 @@ export const router = createBrowserRouter([
       {
         path: "create-car",
         element: (
-          <ProtectedRoute role="admin">
+          <ProtectedRoute role={["admin"]}>
             {" "}
             <CreateCar />
           </ProtectedRoute>
@@ -101,7 +113,7 @@ export const router = createBrowserRouter([
       {
         path: "my-order",
         element: (
-          <ProtectedRoute role="user">
+          <ProtectedRoute role={["user", "admin"]}>
             <MyOrder />,
           </ProtectedRoute>
         ),
@@ -109,11 +121,28 @@ export const router = createBrowserRouter([
       {
         path: "getallorder",
         element: (
-          <ProtectedRoute role="admin">
+          <ProtectedRoute role={["admin"]}>
             <GetAllOrder />
           </ProtectedRoute>
         ),
       },
+      {
+        path: "create-blog",
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <CreateBlog />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "all-blog",
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <AdminBlog />
+          </ProtectedRoute>
+        ),
+      },
+
       {
         path: "all-car",
         element: (
@@ -125,8 +154,16 @@ export const router = createBrowserRouter([
       {
         path: `update-page/:_id`,
         element: (
-          <ProtectedRoute role="admin">
+          <ProtectedRoute role={["admin"]}>
             <UpdateCar />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `update-blog/:id`,
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <UpdateBlog />
           </ProtectedRoute>
         ),
       },

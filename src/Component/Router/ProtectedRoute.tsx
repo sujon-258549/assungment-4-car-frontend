@@ -6,7 +6,7 @@ import { useCurrentToken } from "@/redux/features/assignment4/authSlice";
 
 type TChildrenAndRole = {
   children: ReactNode;
-  role: string | undefined;
+  role: string[] | undefined;
 };
 const ProtectedRoute = ({ children, role }: TChildrenAndRole) => {
   const token = useAppSelector(useCurrentToken);
@@ -17,11 +17,13 @@ const ProtectedRoute = ({ children, role }: TChildrenAndRole) => {
   }
   //   @ts-expect-error-for token
   const UserRole = user?.role;
+
   console.log({ UserRole, role });
-  if (role !== undefined && role !== UserRole) {
+  if (role && role.length > 0 && !role.includes(UserRole)) {
     return <Navigate to={"/login"} replace={true} />;
     // dispatch(logOut());
   }
+
   if (!token) {
     return <Navigate to={"/login"} replace={true} />;
   }

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllCarQuery } from "@/redux/features/auth/Admin/product";
 import { FaCar, FaExternalLinkAlt } from "react-icons/fa";
-import Loder from "@/Component/Utils/Loder";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import "./style.css";
 import { Link } from "react-router-dom";
 import Footer from "@/Component/Layout/Footer";
+import Loader from "@/Component/Utils/Loader";
 const AllCorCard = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
@@ -33,7 +33,7 @@ const AllCorCard = () => {
     setLimit(carData?.meta?.limit);
   }, [carData, setLimit]);
   if (isLoading) {
-    return <Loder />;
+    return <Loader />;
   }
   const handelSearch = (e: any) => {
     e.preventDefault(); // Corrected typo here
