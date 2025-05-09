@@ -9,6 +9,7 @@ const adminApi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
+      invalidatesTags: ["cars"],
     }),
     getAllCar: builder.query({
       query: (args) => {
@@ -32,6 +33,50 @@ const adminApi = baseApi.injectEndpoints({
       },
       providesTags: ["cars"],
     }),
+    getAllRegularCar: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/cars/regular",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: any) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["cars"],
+    }),
+    getOfferCar: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/cars/offer",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: any) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["cars"],
+    }),
 
     getSingleCar: builder.query({
       query: (id: string) => ({
@@ -42,7 +87,16 @@ const adminApi = baseApi.injectEndpoints({
         return response.data; // Assuming the response contains the car data
       },
     }),
-
+    deleteCar: builder.mutation({
+      query: (id: string) => ({
+        url: `/cars/${id}`,
+        method: "DELETE",
+      }),
+      transformResponse: (response: any) => {
+        return response.data; // Assuming the response contains the car data
+      },
+      invalidatesTags: ["cars"],
+    }),
     updateCarData: builder.mutation({
       query: (data) => {
         console.log(data);
@@ -138,4 +192,7 @@ export const {
   useGetAllOrderQuery,
   useGetMyOrderQuery,
   useVarefyPaymentQuery,
+  useDeleteCarMutation,
+  useGetOfferCarQuery,
+  useGetAllRegularCarQuery,
 } = adminApi;

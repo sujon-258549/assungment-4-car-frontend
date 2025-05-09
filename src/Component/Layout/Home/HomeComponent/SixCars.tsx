@@ -1,118 +1,161 @@
-import { useGetAllCarQuery } from "@/redux/features/auth/Admin/product";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { useGetAllRegularCarQuery } from "@/redux/features/auth/Admin/product";
+import {
+  FaExternalLinkAlt,
+  FaShoppingCart,
+  FaCar,
+  FaGasPump,
+  FaTachometerAlt,
+  FaCheckCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 import "./style.css";
 import CommonHading from "./CommonHading";
 import CommonButton from "./CommonButton";
 import { Link } from "react-router-dom";
 import Loader from "@/Component/Utils/Loader";
-const SixCars = () => {
-  const { data: carData, isLoading } = useGetAllCarQuery(undefined);
+import { Button } from "@/components/ui/button";
+import { TCar } from "@/types/car";
 
+const SixCars = () => {
+  const { data: carData, isLoading } = useGetAllRegularCarQuery("");
+  console.log(carData);
   if (isLoading) {
     return <Loader />;
   }
 
+  const totalCars = carData?.data?.data?.length || 0;
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-14 md:pt-24 md:px-8">
-      <div className="text-center">
-        <CommonHading color="black" text="Car Section" />
+    <div className="px-4 max-w-6xl mx-auto py-14 md:pt-24 md:px-8">
+      <div className="text-center mb-12">
+        <CommonHading color="black" text="Premium Vehicle Collection" />
+        <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
+          Discover our exclusive range of high-performance vehicles
+        </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {carData?.data?.data
-          ?.slice(0, 6)
-          .map(
-            ({
-              model,
-              image,
-              brand,
-              _id,
-              price,
-              inStock,
-            }: {
-              image: string;
-              _id: string;
-              price: number;
-              brand: string;
-              model: string;
-              inStock: boolean;
-            }) => (
+
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {carData?.data?.data?.slice(0, 8).map((car: TCar) => {
+          return (
+            <div
+              key={car._id}
+              className={`relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-[#000] group`}
+            >
               <div
-                style={{ boxShadow: "5px 1px 10px" }}
-                key={_id} // Assuming each car object has a unique `id`
-                className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-2xl font-[sans-serif] overflow-hidden mx-auto mt-4"
+                style={{ zIndex: "222" }}
+                className={`absolute top-3 right-3  px-3 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1 shadow-md ${
+                  car.inStock !== false // Changed to explicitly check for false
+                    ? "bg-cyan-600 hover:bg-cyan-700 "
+                    : "bg-red-600 hover:bg-red-700"
+                } transition-colors`}
               >
-                <div className="relative">
-                  <img
-                    src={image} // Using `car.image` instead of treating `car` as an image URL
-                    alt={brand} // Adding an alt tag for accessibility
-                    className="w-full h-60 rounded-r-xl"
-                    style={{ borderRadius: "5px  5px 0 0 " }}
-                  />
-                  <span className="absolute top-0 border -left-[3px] w-[115px] translate-y-4 -translate-x-6 -rotate-45 py-1 bg-black text-center text-sm text-white">
-                    <span className="py-2">
-                      {" "}
-                      {inStock ? "In Stock" : "Out of Stock"}
-                    </span>
+                {car.inStock !== false ? ( // Changed to explicitly check for false
+                  <>
+                    <FaCheckCircle size={10} /> In Stock
+                  </>
+                ) : (
+                  <>
+                    <FaTimesCircle size={10} /> Sold Out
+                  </>
+                )}
+              </div>
+
+              {/* Image Container */}
+              <div className="relative h-40 overflow-hidden">
+                <img
+                  src={car.image[0]}
+                  alt={`${car.brand} ${car.model}`}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-10 transition-opacity duration-300 group-hover:bg-opacity-20" />
+              </div>
+
+              {/* Content */}
+              <div className="p-5 text-white">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h3 className="text-xl font-bold">{car.brand}</h3>
+                    <p className="text-cyan-100 text-sm">{car.model}</p>
+                  </div>
+                  <span className="text-lg font-bold bg-white bg-opacity-20 px-2 py-1 rounded">
+                    ${car.originalPrice.toLocaleString()}
                   </span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl text-gray-800 font-extrabold">
-                    {brand}
-                  </h3>
 
-                  <div className="mt-4">
-                    <h3 className="text-xl text-gray-800 font-medium flex-1">
-                      Model : {model}
-                    </h3>
-                    <h3 className="text-xl text-gray-800 font-medium flex-1">
-                      Prices : ${price}
-                    </h3>
+                {/* Specifications */}
+                <div className="grid grid-cols-2 gap-2 my-3 text-sm">
+                  <div className="flex items-center space-x-2">
+                    <FaCar className="text-cyan-200" size={14} />
+                    <span>{car.bodyType || "Sedan"}</span>
                   </div>
-                  <div className="flex mt-5 justify-between">
-                    <Link to={`/detail-page/${_id}`} className="w-full">
-                      <div className="flex justify-center w-full">
-                        <div className="px-5 py-2  rounded-md text-white bg-cyan-900 transition-all hover:bg-cyan-800 text-center w-full justify-center flex items-center gap-2">
-                          <FaExternalLinkAlt />
-                          Details
-                        </div>
-                      </div>
-                    </Link>
-                    <div>
-                      {/* <AddToCart
-                        border="bg-cyan-900"
-                        btnIcon={<FaExternalLinkAlt />}
-                        text="Details"
-                      /> */}
-                      {/* <Link to={`/detail-page/${_id}`}>
-                        <div className="bg-cyan-900  rounded-md px-1 py-1">
-                          <div
-                            className="flex items-center justify-center p-1.5 cursor-pointer rounded-md text-neutral-500 hover:text-neutral-100  font-medium relative z-[1] group"
-                            data-tooltip="HTML"
-                          >
-                            <FaExternalLinkAlt className="text-[17px] text-white" />
-                            <div className="absolute px-3 text-white hidden group-hover:block text-sm bg-cyan-900 rounded-md p-2 shadow-md bottom-full mb-2 left-1/2 transform -translate-x-1/2">
-                              Details
-                            </div>
-                          </div>
-                        </div>
-                      </Link> */}
-                    </div>
+                  <div className="flex items-center space-x-2">
+                    <FaGasPump className="text-cyan-200" size={14} />
+                    <span>{car.fuelType || "Petrol"}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <FaTachometerAlt className="text-cyan-200" size={14} />
+                    <span>{car.mileage || "18 kmpl"}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <svg
+                      className="w-4 h-4 text-cyan-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                    <span>{car.transmission || "Automatic"}</span>
                   </div>
                 </div>
+
+                {/* Buttons */}
+                <div className="flex justify-between mt-5 space-x-2">
+                  <Link to={`/detail-page/${car._id}`} className="">
+                    <Button className="bg-cyan-700 hover:bg-cyan-800">
+                      <FaExternalLinkAlt size={12} />
+                    </Button>
+                  </Link>
+
+                  <Link to={`/create-order/${car._id}`}>
+                    <button
+                      disabled={!car.inStock}
+                      className={`flex-1 flex items-center justify-center space-x-2 ${
+                        car.inStock
+                          ? "bg-cyan-700 hover:bg-cyan-800 text-white"
+                          : "bg-gray-500 cursor-not-allowed"
+                      } transition-all py-2 px-3 rounded-md text-sm font-medium`}
+                    >
+                      <FaShoppingCart size={12} />
+                      <span>Order Now</span>
+                    </button>
+                  </Link>
+                </div>
               </div>
-            )
-          )}
+
+              {/* Hover effect border */}
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-white group-hover:border-opacity-30 transition-all duration-300 pointer-events-none" />
+            </div>
+          );
+        })}
       </div>
-      <div className="mt-10 flex justify-center">
-        <Link to={"/all-cars"}>
-          <div style={{ boxShadow: "5px 5px 10px", borderRadius: "12px" }}>
+
+      {/* Conditional View All Button */}
+      {totalCars >= 8 && (
+        <div className="mt-12 text-center">
+          <Link to="/all-cars">
             <CommonButton
               btnIcon={<FaExternalLinkAlt />}
-              text="View All Cars"
-            ></CommonButton>
-          </div>
-        </Link>
-      </div>
+              text="View All Vehicles"
+            />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

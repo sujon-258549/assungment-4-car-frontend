@@ -50,7 +50,7 @@ const Profile = () => {
         <div className="flex flex-col items-center">
           <Avatar className="h-24 w-24 border-4 border-white mb-4">
             <AvatarImage
-              src={meData.profileImage}
+              src={meData?.profileImage}
               alt={`${meData.firstName} ${meData.lastName}`}
             />
             <AvatarFallback>

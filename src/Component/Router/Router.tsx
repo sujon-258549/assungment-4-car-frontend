@@ -7,7 +7,6 @@ import Home from "../Layout/Home/Home";
 import Contact from "../page/Contect/Contact";
 import CreateCar from "../page/dashboard/admin/Car/CreateCar";
 import AllCorCard from "../page/Common/AllCorCard";
-import DetailsCar from "../page/Common/DetailsCar";
 import AboutUs from "../Layout/Home/About/AboutUs";
 import GetAllCar from "../page/dashboard/admin/Car/GetAllCar";
 import UpdateCar from "../page/dashboard/admin/Car/UpdateCar";
@@ -23,6 +22,13 @@ import CreateBlog from "../page/dashboard/admin/Blog/CreateBlog";
 import AdminBlog from "../page/dashboard/admin/Blog/AdminBlog";
 import DetailsBlog from "../page/dashboard/admin/Blog/DetalBlog";
 import UpdateBlog from "../page/dashboard/admin/Blog/UpdateBlog";
+import CreateCarShopForm from "../page/dashboard/admin/shop/createShopAndUpdate/CreateCarShopForm";
+import DetailsShop from "../page/dashboard/admin/shop/DetailsShop/DetailsShop";
+import UpdateCarShopForm from "../page/dashboard/admin/shop/createShopAndUpdate/UpdateCarShopForm";
+import DetailsCarPage from "../page/dashboard/admin/Car/DetailsCarPage";
+import CreateOrder from "../page/Common/CreateOrder";
+import AllBlog from "../page/Common/AllBlog";
+import AllOfferCard from "../page/Common/AllOfferCard";
 
 export const router = createBrowserRouter([
   {
@@ -51,8 +57,20 @@ export const router = createBrowserRouter([
         element: <AllCorCard />,
       },
       {
-        path: `/detail-page/:_id`,
-        element: <DetailsCar />,
+        path: "/all-offer-cars",
+        element: <AllOfferCard />,
+      },
+      {
+        path: "/all-blog",
+        element: <AllBlog />,
+      },
+      {
+        path: `/create-order/:_id`,
+        element: <CreateOrder />,
+      },
+      {
+        path: `/detail-car/:_id`,
+        element: <DetailsCarPage />,
       },
       {
         path: "/contact",
@@ -164,6 +182,30 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute role={["admin"]}>
             <UpdateBlog />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `create-shop`,
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <CreateCarShopForm />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `details-shop`,
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <DetailsShop />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `update-shop`,
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <UpdateCarShopForm />
           </ProtectedRoute>
         ),
       },

@@ -1,21 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useGetAllCarQuery } from "@/redux/features/auth/Admin/product";
-import { FaCar, FaEdit, FaExternalLinkAlt } from "react-icons/fa";
+import {
+  useDeleteCarMutation,
+  useGetAllCarQuery,
+} from "@/redux/features/auth/Admin/product";
+import { FaCar } from "react-icons/fa";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
 import { Table, Button } from "antd";
 import { Link } from "react-router-dom";
 import Loader from "@/Component/Utils/Loader";
+import Swal from "sweetalert2";
 
 const GetAllCar = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [page, setPage] = useState<any>();
   const [limit, setLimit] = useState<any>();
+  const [deleteMutation] = useDeleteCarMutation();
 
   const queryParams = [{ name: "searchTerm", value: search }];
   if (category) {
-    queryParams.push({ name: "category", value: category });
+    queryParams.push({ name: "drivetrain", value: category });
   }
   if (page) {
     queryParams.push({ name: "page", value: page });
@@ -47,14 +52,35 @@ const GetAllCar = () => {
     const data = e.target.search.value;
     setSearch(data);
   };
-
+  const handelDelete = async (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const result = await deleteMutation(id);
+        if (result.data.success) {
+          Swal.fire({
+            title: result.data.message,
+            text: "Car Deleted successfully",
+            icon: "success",
+          });
+        }
+      }
+    });
+  };
   const columns = [
     {
       title: "Image",
       dataIndex: "image",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Car" className="w-20 h-14 rounded-md" />
+        <img src={image[0]} alt="Car" className="w-20 h-14 rounded-md" />
       ),
     },
     {
@@ -91,24 +117,27 @@ const GetAllCar = () => {
       key: "actions",
       render: (_: any, record: any) => (
         <div className="flex gap-2">
-          <Link to={`/detail-page/${record._id}`}>
-            <Button icon={<FaExternalLinkAlt />} type="dashed">
-              Details
-            </Button>
+          <Link to={`/detail-car/${record._id}`}>
+            <Button type="dashed">Details</Button>
           </Link>
 
           <Link to={`/dashboard/update-page/${record._id}`}>
-            <Button className="bg-cyan-900 text-white" icon={<FaEdit />}>
-              Update
-            </Button>
+            <Button className="bg-cyan-900 text-white">Update</Button>
           </Link>
+
+          <Button
+            onClick={() => handelDelete(record._id)}
+            className="bg-red-700 text-white"
+          >
+            Delete
+          </Button>
         </div>
       ),
     },
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-14 md:pt-24 md:px-8">
+    <div className="max-w-6xl mx-auto px-4 py-14 md:px-8">
       <div className="text-center mb-5 md:mb-10">
         <CommonHading color="black" text="All Cars" />
       </div>
@@ -164,11 +193,10 @@ const GetAllCar = () => {
             onChange={(e) => setCategory(e.target?.value)}
             className="appearance-none text-white bg-cyan-900 ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
           >
-            <option value="Sedan">Sedan</option>
-            <option value="SUV">SUV</option>
-            <option value="Truck">Truck</option>
-            <option value="Coupe">Coupe</option>
-            <option value="Convertible">Convertible</option>
+            <option value="4WD">4WD</option>
+            <option value="AWD">AWD</option>
+            <option value="TrRWDuck">RWD</option>
+            <option value="FWD">FWD</option>
           </select>
         </div>
       </div>

@@ -32,7 +32,7 @@ const DropdownProfile = () => {
         <DropdownMenuTrigger>
           <Avatar>
             <AvatarImage
-              src={meData.profileImage || "https://github.com/shadcn.png"}
+              src={meData?.profileImage || "https://github.com/shadcn.png"}
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>

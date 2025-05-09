@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <section
-      style={{ zIndex: "999" }}
+      style={{ zIndex: "250" }}
       className="  sticky top-0 transition-all duration-500 ease-in-out bg-white shadow-lg z-10 "
     >
       <header className="flex header max-w-6xl mx-auto md:px-9 px-6 font-sans min-h-[70px] tracking-wide relative z-50">
@@ -63,6 +63,30 @@ const Header = () => {
                   className=" text-gray-600 font-bold block text-base"
                 >
                   Home
+                </NavLink>
+              </li>
+              <li className="max-lg:border-b max-lg:py-3 px-3">
+                <NavLink
+                  to="/all-cars"
+                  className=" text-gray-600 font-bold block text-base"
+                >
+                  All Car
+                </NavLink>
+              </li>
+              <li className="max-lg:border-b max-lg:py-3 px-3">
+                <NavLink
+                  to="/all-offer-cars"
+                  className=" text-gray-600 font-bold block text-base"
+                >
+                  All Offer Car
+                </NavLink>
+              </li>
+              <li className="max-lg:border-b max-lg:py-3 px-3">
+                <NavLink
+                  to="/all-blog"
+                  className=" text-gray-600 font-bold block text-base"
+                >
+                  All Blog
                 </NavLink>
               </li>
               <li className="max-lg:border-b max-lg:py-3 px-3">

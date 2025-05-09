@@ -18,6 +18,10 @@ import { useAppDispatch } from "@/redux/hooks";
 import { logOut } from "@/redux/features/assignment4/authSlice";
 import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import Loader from "@/Component/Utils/Loader";
+import { BsShop } from "react-icons/bs";
+import { MdUpdate } from "react-icons/md";
+import { FaShop } from "react-icons/fa6";
+import { FaBlogger } from "react-icons/fa";
 
 type MenuItem = {
   path: string;
@@ -71,7 +75,7 @@ const Sidebar = () => {
   const adminMenus: CollapsibleMenu[] = [
     {
       title: "Blogs Management",
-      icon: <Car className="w-5 h-5" />,
+      icon: <FaBlogger className="w-5 h-5" />,
       items: [
         {
           path: "/dashboard/create-blog",
@@ -113,6 +117,30 @@ const Sidebar = () => {
           path: "/dashboard/getallorder",
           label: "All Orders",
           icon: <ShoppingCart className="w-4 h-4" />,
+        },
+      ],
+      adminOnly: true,
+    },
+    {
+      title: "Shop Management",
+      icon: <FaShop className="w-5 h-5" />,
+      items: [
+        {
+          path: "/dashboard/create-shop",
+          label: "Create Shop",
+          icon: (
+            <span className="w-4 h-4 flex items-center justify-center">+</span>
+          ),
+        },
+        {
+          path: "/dashboard/details-shop",
+          label: "Shop",
+          icon: <BsShop className="w-4 h-4" />,
+        },
+        {
+          path: "/dashboard/update-shop",
+          label: "Update Shop",
+          icon: <MdUpdate className="w-4 h-4" />,
         },
       ],
       adminOnly: true,
@@ -300,16 +328,16 @@ const Sidebar = () => {
           <div className="p-6 text-center border-b border-purple-700">
             <div className="flex gap-2 items-center">
               <img
-                src={meData.profileImage}
+                src={meData?.profileImage}
                 alt="Profile"
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-12 h-12 border border-white rounded-full object-cover"
               />
               <div>
-                <h2 className="text-xl font-semibold">
-                  {meData.firstName} {meData.lastName}
+                <h2 className="text-sm font-semibold">
+                  {meData?.firstName} {meData?.lastName}
                 </h2>
                 <p className="text-purple-200 text-left text-sm mt-1">
-                  {meData.email}
+                  {meData?.email}
                 </p>
               </div>
             </div>

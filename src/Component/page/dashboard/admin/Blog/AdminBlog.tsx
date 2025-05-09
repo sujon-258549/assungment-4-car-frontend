@@ -140,23 +140,27 @@ const AdminBlog = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-14 md:pt-24 md:px-8">
+    <div className="max-w-6xl mx-auto px-4 py-10 md:px-8">
       <div className="text-center mb-5 md:mb-10">
         <CommonHading color="black" text="All Blogs" />
       </div>
 
       {/* Search & Filter */}
-      <div className="flex gap-5 mb-10 justify-center flex-wrap">
+      <div className="flex gap-5 mb-10  justify-center flex-wrap">
         <form onSubmit={handleSearch} className="flex items-end gap-2">
           <div className="relative">
             <Input
               name="search"
               placeholder="Search blogs..."
-              className="w-64"
+              className="w-64 py-2"
               allowClear
             />
           </div>
-          <Button htmlType="submit" type="primary">
+          <Button
+            htmlType="submit"
+            className="bg-cyan-900 py-[18px]"
+            type="primary"
+          >
             Search
           </Button>
         </form>

@@ -12,7 +12,6 @@ const DetailsBlog = () => {
     data: blogResponse,
     isLoading,
     isError,
-    error,
   } = useGetSingleBlogsQuery(id as string);
 
   if (isLoading) {
@@ -22,7 +21,7 @@ const DetailsBlog = () => {
   if (isError) {
     return (
       <div className="text-red-500 text-center py-10">
-        Error: {error?.data?.message || "Failed to load blog"}
+        Error: {"Failed to load blog"}
       </div>
     );
   }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useGetAllRegularCarQuery } from "@/redux/features/auth/Admin/product";
+import { useGetOfferCarQuery } from "@/redux/features/auth/Admin/product";
 import {
   FaCar,
   FaCheckCircle,
@@ -18,7 +18,7 @@ import Footer from "@/Component/Layout/Footer";
 import Loader from "@/Component/Utils/Loader";
 import { Button } from "@/components/ui/button";
 import { TCar } from "@/types/car";
-const AllCorCard = () => {
+const AllOfferCard = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [page, setPage] = useState<any>();
@@ -37,7 +37,7 @@ const AllCorCard = () => {
   if (limit) {
     queryParams.push({ name: "limit", value: limit });
   }
-  const { data: carData, isLoading } = useGetAllRegularCarQuery(queryParams);
+  const { data: carData, isLoading } = useGetOfferCarQuery(queryParams);
 
   const meta = carData?.meta;
   useEffect(() => {
@@ -161,7 +161,7 @@ const AllCorCard = () => {
                       <p className="text-cyan-100 text-sm">{car.model}</p>
                     </div>
                     <span className="text-lg font-bold bg-white bg-opacity-20 px-2 py-1 rounded">
-                      ${car.originalPrice.toLocaleString()}
+                      ${car.price.toLocaleString()}
                     </span>
                   </div>
 
@@ -241,4 +241,4 @@ const AllCorCard = () => {
   );
 };
 
-export default AllCorCard;
+export default AllOfferCard;

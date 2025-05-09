@@ -4,7 +4,8 @@ import { RootState } from "../store";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/api",
+  // baseUrl: "http://localhost:5000/api",
+  baseUrl: "https://assignment2-eta-topaz.vercel.app/api",
   // baseUrl: "https://assignment2-eta-topaz.vercel.app/api",
   //   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
@@ -19,7 +20,7 @@ const baseQuery = fetchBaseQuery({
 const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQuery,
-  tagTypes: ["cars"],
+  tagTypes: ["cars", "blogs", "shop"],
   endpoints: () => ({}),
 });
 
