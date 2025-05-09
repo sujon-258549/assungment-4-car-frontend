@@ -4,15 +4,18 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import Footerimg from "./Footerimg";
 
 export default function Footer() {
   return (
-    <footer className="bg-cyan-900 text-white py-8">
+    <footer className="bg-[#424242]  text-white py-8">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="flex flex-wrap justify-between items-center">
           {/* Logo & Description */}
           <div className="w-full md:w-1/3 text-center md:text-left mb-4 md:mb-0">
-            <h2 className="text-2xl font-bold">Car Shop</h2>
+            <a href="#" className="max-sm:hidden">
+              <Footerimg></Footerimg>
+            </a>
             <p className="text-gray-300 text-sm mt-2">
               Crafting quality web solutions with passion.
             </p>

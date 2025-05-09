@@ -1,5 +1,5 @@
 import { FaExternalLinkAlt, FaCalendarAlt, FaUser } from "react-icons/fa";
-import "./style.css";
+
 import CommonHading from "./CommonHading";
 import CommonButton from "./CommonButton";
 import { Link } from "react-router-dom";
@@ -51,7 +51,7 @@ const HomeBlog = () => {
                 <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
               </div>
 
-              <h3 className="text-xl font-bold mb-2 hover:text-cyan-700 transition-colors">
+              <h3 className="text-[18px] font-bold mb-2 hover:text-cyan-700 transition-colors">
                 {blog?.title}
               </h3>
 
@@ -64,7 +64,7 @@ const HomeBlog = () => {
                   {blog?.category}
                 </span>
                 <Link to={`/details-blog/${blog._id}`}>
-                  <Button className="bg-cyan-700 hover:bg-cyan-800">
+                  <Button className="bg-[#424242] hover:bg-[#424242da]">
                     Read More
                   </Button>
                 </Link>

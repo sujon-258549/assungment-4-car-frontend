@@ -13,6 +13,7 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const ShopInfoCard = ({ data }: { data: any }) => {
   console.log(data);
@@ -209,9 +210,11 @@ const ShopInfoCard = ({ data }: { data: any }) => {
             </div>
           </div>
         </div>
-        <Link href={"/dashboard/meal-provider/update-meal-provider"}>
+        <Link to={"/dashboard/meal-provider/update-meal-provider"}>
           <div className=" pt-5 md:mt-10">
-            <Button className="w-full mx-auto">update</Button>
+            <Button className="bg-[#424242] hover:bg-[#424242da]">
+              update
+            </Button>
           </div>
         </Link>
       </div>

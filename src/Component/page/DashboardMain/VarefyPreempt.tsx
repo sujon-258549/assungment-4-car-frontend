@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 
 const VarefyPreempt = () => {
   const [searchParam] = useSearchParams();
+  console.log(searchParam.get("order_id"));
   const { data, isLoading } = useVarefyPaymentQuery(
     searchParam.get("order_id")
   );
@@ -29,27 +30,27 @@ const VarefyPreempt = () => {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Name:</span>
-              <span className="text-gray-600">{paymentData.name}</span>
+              <span className="text-gray-600">{paymentData?.name}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Email:</span>
-              <span className="text-gray-600">{paymentData.email}</span>
+              <span className="text-gray-600">{paymentData?.email}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Phone:</span>
-              <span className="text-gray-600">{paymentData.phone_no}</span>
+              <span className="text-gray-600">{paymentData?.phone_no}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Address:</span>
-              <span className="text-gray-600">{paymentData.address}</span>
+              <span className="text-gray-600">{paymentData?.address}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">City:</span>
-              <span className="text-gray-600">{paymentData.city}</span>
+              <span className="text-gray-600">{paymentData?.city}</span>
             </div>
           </div>
 
@@ -58,7 +59,7 @@ const VarefyPreempt = () => {
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Amount:</span>
               <span className="text-gray-600">
-                {paymentData.amount} {paymentData.currency}
+                {paymentData?.amount} {paymentData?.currency}
               </span>
             </div>
 
@@ -66,27 +67,27 @@ const VarefyPreempt = () => {
               <span className="font-medium text-gray-700">
                 Transaction Status:
               </span>
-              <span className="text-gray-600">{paymentData.bank_status}</span>
+              <span className="text-gray-600">{paymentData?.bank_status}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Transaction ID:</span>
-              <span className="text-gray-600">{paymentData.bank_trx_id}</span>
+              <span className="text-gray-600">{paymentData?.bank_trx_id}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Invoice No:</span>
-              <span className="text-gray-600">{paymentData.invoice_no}</span>
+              <span className="text-gray-600">{paymentData?.invoice_no}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Order ID:</span>
-              <span className="text-gray-600">{paymentData.order_id}</span>
+              <span className="text-gray-600">{paymentData?.order_id}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="font-medium text-gray-700">Payment Method:</span>
-              <span className="text-gray-600">{paymentData.method}</span>
+              <span className="text-gray-600">{paymentData?.method}</span>
             </div>
 
             <div className="flex justify-between items-center">
@@ -94,7 +95,7 @@ const VarefyPreempt = () => {
                 Received Amount:
               </span>
               <span className="text-gray-600">
-                {paymentData.received_amount}
+                {paymentData?.received_amount}
               </span>
             </div>
           </div>
@@ -103,7 +104,7 @@ const VarefyPreempt = () => {
           <div className="mt-6 text-center">
             <Link
               to={"/dashboard/my-order"}
-              className="bg-cyan-900 hover:bg-cyan-700 text-white py-2 px-6 rounded-full transition-all duration-300 ease-in-out"
+              className="bg-[#424242] hover:bg-[#424242da] text-white py-2 px-6 rounded-full transition-all duration-300 ease-in-out"
             >
               View Your Order
             </Link>

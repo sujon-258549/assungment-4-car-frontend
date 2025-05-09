@@ -29,6 +29,7 @@ import DetailsCarPage from "../page/dashboard/admin/Car/DetailsCarPage";
 import CreateOrder from "../page/Common/CreateOrder";
 import AllBlog from "../page/Common/AllBlog";
 import AllOfferCard from "../page/Common/AllOfferCard";
+import OrderDetails from "../page/DashboardMain/OrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -46,8 +47,7 @@ export const router = createBrowserRouter([
       {
         path: "/varefy-payment",
         element: (
-          <ProtectedRoute role={["admin"]}>
-            {" "}
+          <ProtectedRoute role={["admin", "user"]}>
             <VarefyPreempt />
           </ProtectedRoute>
         ),
@@ -81,6 +81,15 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute role={["admin"]}>
             <DetailsBlog />
+          </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: `details-orders/:_id`,
+        element: (
+          <ProtectedRoute role={["admin", "user"]}>
+            <OrderDetails />
           </ProtectedRoute>
         ),
       },
@@ -133,6 +142,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute role={["user", "admin"]}>
             <MyOrder />,
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "all-orders",
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <GetAllOrder />,
           </ProtectedRoute>
         ),
       },

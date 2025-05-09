@@ -6,7 +6,7 @@ const TeamSection = () => {
       id: 1,
       name: "Alex Johnson",
       role: "Lead Mechanic",
-      bio: "20+ years in automotive repair. ASE Master Certified.",
+      bio: "20+ years in automotive repair",
       image:
         "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       social: { linkedin: "#", twitter: "#", github: "#" },
@@ -16,7 +16,7 @@ const TeamSection = () => {
       id: 2,
       name: "Maria Garcia",
       role: "Service Manager",
-      bio: "Customer service expert in auto maintenance.",
+      bio: "Customer service expert .",
       image:
         "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       social: { linkedin: "#", twitter: "#", github: "#" },
@@ -26,7 +26,7 @@ const TeamSection = () => {
       id: 3,
       name: "Jamal Williams",
       role: "Electrical Specialist",
-      bio: "Expert in vehicle electronics and ADAS.",
+      bio: "Expert in vehicle electronics.",
       image:
         "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       social: { linkedin: "#", twitter: "#", github: "#" },
@@ -36,7 +36,7 @@ const TeamSection = () => {
       id: 4,
       name: "Sarah Chen",
       role: "Body Shop Tech",
-      bio: "Precision collision repair & paint matching.",
+      bio: "Precision collision repair",
       image:
         "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       social: { linkedin: "#", twitter: "#", github: "#" },
@@ -87,7 +87,7 @@ const TeamSection = () => {
                   </p>
                 </div>
 
-                <div className="mt-4 flex justify-center space-x-3">
+                <div className="mt-4 flex space-x-3">
                   <a
                     href={member.social.linkedin}
                     className="text-gray-400 hover:text-blue-500"

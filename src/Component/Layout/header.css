@@ -1,14 +1,3 @@
-/* .header ul li {
-  position: relative;
-}
-.header .active:active {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 150px;
-  color: black;
-} */
 .header ul li a {
   position: relative;
 }
@@ -20,7 +9,7 @@
   bottom: -2px; /* Adjust as needed */
   width: 0%; /* Initially hidden */
   height: 3px; /* Thickness of the underline */
-  background-color: rgb(8, 18, 18);
+  background-color: rgb(251, 251, 251);
   transition: width 0.4s ease-in-out;
 }
 
@@ -29,6 +18,12 @@
 }
 
 .header .active {
-  border-bottom: 3px solid rgb(8, 18, 18);
-  color: rgb(8, 18, 18);
+  border-bottom: 3px solid rgb(215, 229, 229);
+  color: rgb(0, 4, 4);
+  background-color: rgb(255, 255, 255);
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+.header a {
+  color: rgb(215, 229, 229);
 }

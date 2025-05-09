@@ -222,7 +222,7 @@ export default function CreateBlog() {
 
               <Button
                 type="submit"
-                className="w-full bg-cyan-900 mt-6"
+                className="w-full bg-[#424242] hover:bg-[#424242da] mt-6"
                 size="lg"
               >
                 Publish Post

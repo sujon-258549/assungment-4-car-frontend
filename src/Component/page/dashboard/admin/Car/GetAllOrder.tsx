@@ -3,8 +3,9 @@ import { useGetAllOrderQuery } from "@/redux/features/auth/Admin/product";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
-import { Table, Button, Modal } from "antd";
+import { Table, Button } from "antd";
 import Loader from "@/Component/Utils/Loader";
+import { Link } from "react-router-dom";
 
 interface CarData {
   _id: string;
@@ -30,15 +31,13 @@ interface CarData {
 const GetAllOrder = () => {
   const [page, setPage] = useState<any>(1);
   const [limit, setLimit] = useState<any>(10);
-  const [selectedOrder, setSelectedOrder] = useState<CarData | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const queryParams = [{ name: "searchTerm", value: "" }];
   if (page) queryParams.push({ name: "page", value: page });
   if (limit) queryParams.push({ name: "limit", value: limit });
 
   const { data: carData, isLoading } = useGetAllOrderQuery(queryParams);
-
+  console.log(carData?.data.data);
   useEffect(() => {
     if (carData?.meta) {
       setLimit(carData.meta.limit);
@@ -49,32 +48,23 @@ const GetAllOrder = () => {
     return <Loader />;
   }
 
-  const showModal = (order: CarData) => {
-    setSelectedOrder(order);
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const columns = [
     {
       title: "Image",
-      dataIndex: ["products", 0, "car", "image"],
+      dataIndex: ["productId", "image"],
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Car" className="w-20 h-14 rounded-md" />
+        <img src={image[0]} alt="Car" className="w-20 h-14 rounded-md" />
       ),
     },
     {
       title: "Email",
-      dataIndex: ["user", "email"], // Corrected to access the user.email
+      dataIndex: ["customerId", "email"], // Corrected to access the user.email
       key: "email", // Unique key for this column
     },
     {
       title: "Product Brand",
-      dataIndex: ["products", 0, "car", "brand"],
+      dataIndex: ["productId", "brand"],
       key: "brand",
     },
     {
@@ -85,13 +75,18 @@ const GetAllOrder = () => {
     },
     {
       title: "Model",
-      dataIndex: ["products", 0, "car", "model"],
+      dataIndex: ["productId", "model"],
+      key: "model",
+    },
+    {
+      title: "Delivery Status",
+      dataIndex: "deliveryStatus",
       key: "model",
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
       render: (
         status: "Pending" | "Paid" | "Shipped" | "Completed" | "Cancelled"
       ) => {
@@ -124,13 +119,11 @@ const GetAllOrder = () => {
       key: "actions",
       render: (_: any, record: CarData) => (
         <div className="flex gap-2">
-          <Button
-            icon={<FaExternalLinkAlt />}
-            type="dashed"
-            onClick={() => showModal(record)}
-          >
-            Details
-          </Button>
+          <Link to={`/details-orders/${record._id}`}>
+            <Button icon={<FaExternalLinkAlt />} type="dashed">
+              Details
+            </Button>
+          </Link>
         </div>
       ),
     },
@@ -139,7 +132,7 @@ const GetAllOrder = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-14 md:pt-10 md:px-8">
       <div className="text-center mb-5 md:mb-10">
-        <CommonHading color="black" text="My Orders" />
+        <CommonHading color="black" text="All Orders" />
       </div>
 
       <Table
@@ -153,35 +146,6 @@ const GetAllOrder = () => {
           onChange: (pageValue) => setPage(pageValue),
         }}
       />
-
-      <Modal
-        title="Order Details"
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        {selectedOrder && (
-          <div>
-            <img
-              className="h-60 object-cover w-full"
-              src={selectedOrder.products[0]?.car.image}
-              alt=""
-            />
-            <p>
-              <strong>Brand:</strong> {selectedOrder.products[0]?.car.brand}
-            </p>
-            <p>
-              <strong>Model:</strong> {selectedOrder.products[0]?.car.model}
-            </p>
-            <p>
-              <strong>Total Price:</strong> ${selectedOrder.totalPrice}
-            </p>
-            <p>
-              <strong>Status:</strong> {selectedOrder.status}
-            </p>
-          </div>
-        )}
-      </Modal>
     </div>
   );
 };

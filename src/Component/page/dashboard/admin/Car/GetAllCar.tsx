@@ -99,6 +99,11 @@ const GetAllCar = () => {
       key: "price",
     },
     {
+      title: "Is Offer",
+      dataIndex: "isOffer",
+      key: "isOffer",
+    },
+    {
       title: "Stock",
       dataIndex: "inStock",
       key: "inStock",
@@ -122,7 +127,9 @@ const GetAllCar = () => {
           </Link>
 
           <Link to={`/dashboard/update-page/${record._id}`}>
-            <Button className="bg-cyan-900 text-white">Update</Button>
+            <Button className="bg-[#424242] hover:bg-[#424242da]">
+              Update
+            </Button>
           </Link>
 
           <Button
@@ -161,7 +168,7 @@ const GetAllCar = () => {
             />
           </div>
           <button
-            className="inline-flex items-center py-2.5 px-3  text-sm font-medium text-white bg-cyan-900 rounded-r-lg border border-blue-700"
+            className="inline-flex items-center py-2.5 px-3  text-sm font-medium text-white bg-[#424242] hover:bg-[#424242da] rounded-r-lg border border-blue-700"
             type="submit"
           >
             Search
@@ -169,7 +176,7 @@ const GetAllCar = () => {
         </form>
 
         {/* /*select */}
-        <div className="relative group rounded-lg w-64 bg-cyan-900 overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
+        <div className="relative group rounded-lg w-64 bg-[#424242] hover:bg-[#424242da] overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
           <svg
             y={0}
             xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +198,7 @@ const GetAllCar = () => {
           </svg>
           <select
             onChange={(e) => setCategory(e.target?.value)}
-            className="appearance-none text-white bg-cyan-900 ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
+            className="appearance-none text-white bg-[#424242] hover:bg-[#424242da] ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
           >
             <option value="4WD">4WD</option>
             <option value="AWD">AWD</option>

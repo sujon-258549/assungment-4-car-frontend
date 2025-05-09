@@ -52,7 +52,9 @@ const CreateOrder = () => {
 
     const toastId = toast.loading("Creating order...", { duration: 2000 });
     const order = {
-      products: [{ car: id, quantity: inputQuantity, colors: selectedColor }],
+      car: id,
+      quantity: inputQuantity,
+      colors: selectedColor,
     };
     console.log(order);
     const res = await createOrders(order);
@@ -156,7 +158,7 @@ const CreateOrder = () => {
                   onClick={() => setActiveImageIndex(index)}
                   className={`flex-shrink-0 w-16 h-16 rounded-lg cursor-pointer border-2 transition-all ${
                     activeImageIndex === index
-                      ? "border-blue-500"
+                      ? "border-[#424242]"
                       : "border-transparent"
                   }`}
                 >
@@ -306,7 +308,7 @@ const CreateOrder = () => {
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => _id && handleOrder(_id)}
-                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white py-4 px-6 rounded-xl font-medium flex items-center justify-center gap-3 transition-colors shadow-md hover:shadow-lg"
+                className="flex-1 bg-[#424242] hover:bg-[#424242da] text-white py-4 px-6 rounded-xl font-medium flex items-center justify-center gap-3 transition-colors shadow-md hover:shadow-lg"
                 disabled={!selectedColor}
               >
                 <FaShoppingCart className="text-lg" />

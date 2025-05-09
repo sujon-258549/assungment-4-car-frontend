@@ -12,7 +12,6 @@ import {
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
 import { Pagination } from "antd";
-import "./style.css";
 import { Link } from "react-router-dom";
 import Footer from "@/Component/Layout/Footer";
 import Loader from "@/Component/Utils/Loader";
@@ -77,7 +76,7 @@ const AllCorCard = () => {
               />
             </div>
             <button
-              className="inline-flex items-center py-2.5 px-3  text-sm font-medium text-white bg-cyan-900 rounded-r-lg border border-blue-700"
+              className="inline-flex items-center py-2.5 px-3  text-sm font-medium text-white bg-[#424242] hover:bg-[#424242da] rounded-r-lg border border-blue-700"
               type="submit"
             >
               Search
@@ -85,7 +84,7 @@ const AllCorCard = () => {
           </form>
 
           {/* /*select */}
-          <div className="relative group rounded-lg w-64 bg-cyan-900 overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
+          <div className="relative group rounded-lg w-64 bg-[#424242] hover:bg-[#424242da] overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
             <svg
               y={0}
               xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +106,7 @@ const AllCorCard = () => {
             </svg>
             <select
               onChange={(e) => setCategory(e.target?.value)}
-              className="appearance-none text-white bg-cyan-900 ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
+              className="appearance-none text-white bg-[#424242] hover:bg-[#424242da] ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
             >
               <option value="Sedan">Sedan</option>
               <option value="SUV">SUV</option>
@@ -128,7 +127,7 @@ const AllCorCard = () => {
                   style={{ zIndex: "222" }}
                   className={`absolute top-3 right-3  px-3 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1 shadow-md ${
                     car.inStock !== false // Changed to explicitly check for false
-                      ? "bg-cyan-600 hover:bg-cyan-700 "
+                      ? "bg-[#424242] hover:bg-[#424242da] "
                       : "bg-red-600 hover:bg-red-700"
                   } transition-colors`}
                 >
@@ -155,6 +154,7 @@ const AllCorCard = () => {
 
                 {/* Content */}
                 <div className="p-5 text-white">
+                  lorem
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <h3 className="text-xl font-bold">{car.brand}</h3>
@@ -164,7 +164,6 @@ const AllCorCard = () => {
                       ${car.originalPrice.toLocaleString()}
                     </span>
                   </div>
-
                   {/* Specifications */}
                   <div className="grid grid-cols-2 gap-2 my-3 text-sm">
                     <div className="flex items-center space-x-2">
@@ -196,11 +195,10 @@ const AllCorCard = () => {
                       <span>{car.transmission || "Automatic"}</span>
                     </div>
                   </div>
-
                   {/* Buttons */}
                   <div className="flex justify-between mt-5 space-x-2">
                     <Link to={`/detail-page/${car._id}`} className="">
-                      <Button className="bg-cyan-700 hover:bg-cyan-800">
+                      <Button className="bg-[#424242] hover:bg-[#424242da]">
                         <FaExternalLinkAlt size={12} />
                       </Button>
                     </Link>
@@ -210,7 +208,7 @@ const AllCorCard = () => {
                         disabled={!car.inStock}
                         className={`flex-1 flex items-center justify-center space-x-2 ${
                           car.inStock
-                            ? "bg-cyan-700 hover:bg-cyan-800 text-white"
+                            ? "bg-[#424242] hover:bg-[#424242da] text-white"
                             : "bg-gray-500 cursor-not-allowed"
                         } transition-all py-2 px-3 rounded-md text-sm font-medium`}
                       >

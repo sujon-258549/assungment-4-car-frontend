@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import CommonHading from "./CommonHading";
 
 const ServicesSection = () => {
   const services = [
@@ -146,9 +147,7 @@ const ServicesSection = () => {
     <section className="py-16 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-black sm:text-4xl">
-            Our Premium Services
-          </h2>
+          <CommonHading color="black" text="Our Premium Services" />
           <p className="mt-4 text-xl text-gray-600">
             Quality care for your vehicle at competitive prices
           </p>
@@ -168,13 +167,13 @@ const ServicesSection = () => {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div className="absolute top-4 right-4 bg-gray-900/80 p-3 rounded-full shadow-md backdrop-blur-sm">
+                <div className="absolute top-4 right-4 bg-[#424242] p-3 rounded-full shadow-md backdrop-blur-sm">
                   {service.icon}
                 </div>
               </div>
 
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-[18px] font-bold text-white mb-2">
                   {service.title}
                 </h3>
                 <p className="text-gray-300 mb-4">
@@ -185,7 +184,7 @@ const ServicesSection = () => {
                   {service.popularServices.slice(0, 3).map((item, idx) => (
                     <span
                       key={idx}
-                      className="text-xs bg-gray-700 text-gray-200 px-2 py-1 rounded"
+                      className="text-xs bg-[#424242de] text-gray-200 px-2 py-1 rounded"
                     >
                       {item}
                     </span>
@@ -194,7 +193,7 @@ const ServicesSection = () => {
 
                 <Dialog>
                   <DialogTrigger asChild>
-                    <button className="w-full mt-2 flex items-center justify-between gap-2 text-blue-400 hover:text-blue-300 transition-colors font-medium py-2 px-4 rounded-lg bg-gray-900/50 hover:bg-gray-700/50">
+                    <button className="w-full mt-2 flex items-center justify-between gap-2 text-blue-200 hover:text-blue-300 transition-colors font-medium py-2 px-4 rounded-lg  bg-[#424242] hover:bg-[#424242da]">
                       <span>Read more</span>
                       <FaChevronRight className="text-sm" />
                     </button>

@@ -3,8 +3,9 @@ import { useGetMyOrderQuery } from "@/redux/features/auth/Admin/product";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
-import { Table, Button, Modal } from "antd";
+import { Table, Button } from "antd";
 import Loader from "@/Component/Utils/Loader";
+import { Link } from "react-router-dom";
 
 // Define types for API response
 interface CarData {
@@ -26,8 +27,6 @@ interface CarData {
 const MyOrder = () => {
   const [page, setPage] = useState<any>(1);
   const [limit, setLimit] = useState<any>(10);
-  const [selectedOrder, setSelectedOrder] = useState<CarData | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const queryParams = [{ name: "searchTerm", value: "" }];
   if (page) queryParams.push({ name: "page", value: page });
@@ -46,29 +45,22 @@ const MyOrder = () => {
     return <Loader />;
   }
 
-  // Open modal and set selected order
-  const openModal = (order: CarData) => {
-    setSelectedOrder(order);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedOrder(null);
-  };
-
   const columns = [
     {
-      title: "Image",
-      dataIndex: ["products", 0, "car", "image"],
+      title: "Product Image",
+      dataIndex: ["productId", "image"],
       key: "image",
-      render: (image: string) => (
-        <img src={image} alt="Car" className="w-20 h-14 rounded-md" />
+      render: (images: string[]) => (
+        <img
+          src={images?.[0]}
+          alt="Product"
+          className="w-20 h-14 rounded-md object-cover"
+        />
       ),
     },
     {
       title: "Product Brand",
-      dataIndex: ["products", 0, "car", "brand"],
+      dataIndex: ["productId", "brand"],
       key: "brand",
     },
     {
@@ -79,12 +71,12 @@ const MyOrder = () => {
     },
     {
       title: "Model",
-      dataIndex: ["products", 0, "car", "model"],
+      dataIndex: ["productId", "model"],
       key: "model",
     },
     {
       title: "Status",
-      dataIndex: "status",
+      dataIndex: "paymentStatus",
       key: "status",
       render: (
         status: "Pending" | "Paid" | "Shipped" | "Completed" | "Cancelled"
@@ -126,13 +118,11 @@ const MyOrder = () => {
       key: "actions",
       render: (_: any, record: CarData) => (
         <div className="flex gap-2">
-          <Button
-            onClick={() => openModal(record)}
-            icon={<FaExternalLinkAlt />}
-            type="dashed"
-          >
-            Details
-          </Button>
+          <Link to={`/details-orders/${record._id}`}>
+            <Button icon={<FaExternalLinkAlt />} type="dashed">
+              Details
+            </Button>
+          </Link>
         </div>
       ),
     },
@@ -156,36 +146,6 @@ const MyOrder = () => {
           onChange: (pageValue) => setPage(pageValue),
         }}
       />
-
-      {/* Order Details Modal */}
-      <Modal
-        title="Order Details"
-        open={isModalOpen}
-        onCancel={closeModal}
-        footer={null}
-      >
-        {selectedOrder && (
-          <div className="space-y-4">
-            <img
-              src={selectedOrder.products[0].car.image}
-              alt="Car"
-              className="w-full h-40 object-cover rounded-md"
-            />
-            <p>
-              <strong>Brand:</strong> {selectedOrder.products[0].car.brand}
-            </p>
-            <p>
-              <strong>Model:</strong> {selectedOrder.products[0].car.model}
-            </p>
-            <p>
-              <strong>Total Price:</strong> ${selectedOrder.totalPrice}
-            </p>
-            <p>
-              <strong>Status:</strong> {selectedOrder.status}
-            </p>
-          </div>
-        )}
-      </Modal>
     </div>
   );
 };

@@ -88,7 +88,7 @@ const ChangePassword = () => {
 
           <button
             type="submit"
-            className="px-6 py-2.5 w-full !mt-8 text-sm bg-cyan-900 hover:bg-cyan-600 text-white rounded active:bg-[#006bff]"
+            className="px-6 py-2.5 w-full !mt-8 text-sm bg-[#424242] hover:bg-[#424242da] text-white rounded active:bg-[#006bff]"
           >
             Submit
           </button>

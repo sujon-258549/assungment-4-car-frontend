@@ -87,6 +87,15 @@ const adminApi = baseApi.injectEndpoints({
         return response.data; // Assuming the response contains the car data
       },
     }),
+    getSingleOrder: builder.query({
+      query: (id: string) => ({
+        url: `/orders/${id}`,
+        method: "GET",
+      }),
+      transformResponse: (response: any) => {
+        return response.data; // Assuming the response contains the car data
+      },
+    }),
     deleteCar: builder.mutation({
       query: (id: string) => ({
         url: `/cars/${id}`,
@@ -195,4 +204,5 @@ export const {
   useDeleteCarMutation,
   useGetOfferCarQuery,
   useGetAllRegularCarQuery,
+  useGetSingleOrderQuery,
 } = adminApi;

@@ -316,7 +316,7 @@ const DetailsCarPage = () => {
               </div>
             )}
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+            <button className="w-full bg-[#424242] hover:bg-[#424242da] text-white font-bold py-3 px-4 rounded-lg transition duration-200">
               Contact Dealer
             </button>
           </div>

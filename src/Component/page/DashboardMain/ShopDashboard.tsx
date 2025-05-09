@@ -10,6 +10,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Box, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function ShopDashboard() {
   // Sample data
@@ -155,14 +156,20 @@ export function ShopDashboard() {
 
       {/* Quick Actions */}
       <div className="flex gap-4">
-        <Button className="flex-1" variant="secondary">
-          <Plus className="mr-2 h-4 w-4" />
-          New Order
-        </Button>
-        <Button className="flex-1" variant="secondary">
-          <Box className="mr-2 h-4 w-4" />
-          Add Product
-        </Button>
+        <div className="w-full">
+          <Button className="flex-1 w-full" variant="secondary">
+            <Plus className="mr-2 h-4 w-4" />
+            New Order
+          </Button>
+        </div>
+        <div className="w-full">
+          <Link to={"/dashboard/create-car"}>
+            <Button className="flex-1 w-full" variant="secondary">
+              <Box className="mr-2 h-4 w-4" />
+              Add Product
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

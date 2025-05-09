@@ -3,7 +3,6 @@ import { FaCalendarAlt, FaUser } from "react-icons/fa";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
 import { useEffect, useState } from "react";
 import { Pagination } from "antd";
-import "./style.css";
 import { Link } from "react-router-dom";
 import Footer from "@/Component/Layout/Footer";
 import Loader from "@/Component/Utils/Loader";
@@ -86,7 +85,7 @@ const AllBlog = () => {
               />
             </div>
             <button
-              className="inline-flex items-center py-2.5 px-3 text-sm font-medium text-white bg-cyan-900 rounded-r-lg border border-blue-700"
+              className="inline-flex items-center py-2.5 px-3 text-sm font-medium text-white bg-[#424242] hover:bg-[#424242da] rounded-r-lg border border-blue-700"
               type="submit"
             >
               Search
@@ -94,7 +93,7 @@ const AllBlog = () => {
           </form>
 
           {/* Category Select */}
-          <div className="relative group rounded-lg w-64 bg-cyan-900 overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
+          <div className="relative group rounded-lg w-64 bg-[#424242] hover:bg-[#424242da] overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
             <svg
               y={0}
               xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +115,7 @@ const AllBlog = () => {
             </svg>
             <select
               onChange={(e) => setCategory(e.target?.value)}
-              className="appearance-none text-white bg-cyan-900 ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
+              className="appearance-none text-white bg-[#424242] hover:bg-[#424242da] ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
             >
               <option value="">All Categories</option>
               <option value="Technology">Technology</option>
@@ -153,7 +152,7 @@ const AllBlog = () => {
                   <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 hover:text-cyan-700 transition-colors">
+                <h3 className="text-[18px] font-bold mb-2 hover:text-cyan-700 transition-colors">
                   {blog?.title}
                 </h3>
 
@@ -166,7 +165,7 @@ const AllBlog = () => {
                     {blog?.category}
                   </span>
                   <Link to={`/details-blog/${blog._id}`}>
-                    <Button className="bg-cyan-700 hover:bg-cyan-800">
+                    <Button className="bg-[#424242] hover:bg-[#424242da]">
                       Read More
                     </Button>
                   </Link>

@@ -30,7 +30,7 @@ const DropdownProfile = () => {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Avatar>
+          <Avatar className="border-white border">
             <AvatarImage
               src={meData?.profileImage || "https://github.com/shadcn.png"}
             />

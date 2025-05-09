@@ -126,7 +126,10 @@ const AdminBlog = () => {
           </Button>
 
           <Link to={`/dashboard/update-blog/${record._id}`}>
-            <Button className="bg-cyan-900 text-white" icon={<FaEdit />}>
+            <Button
+              className="bg-[#424242] hover:bg-[#424242da] text-white"
+              icon={<FaEdit />}
+            >
               Update
             </Button>
           </Link>
@@ -158,7 +161,7 @@ const AdminBlog = () => {
           </div>
           <Button
             htmlType="submit"
-            className="bg-cyan-900 py-[18px]"
+            className="bg-[#424242] hover:bg-[#424242da] py-[18px]"
             type="primary"
           >
             Search
@@ -166,13 +169,13 @@ const AdminBlog = () => {
         </form>
 
         {/* Category Select */}
-        <div className="relative group rounded-lg w-64 bg-cyan-900 overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
+        <div className="relative group rounded-lg w-64 bg-[#424242] hover:bg-[#424242da] overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
           <select
             onChange={(e) => {
               setCategory(e.target.value);
               setPagination((prev) => ({ ...prev, page: 1 })); // Reset to first page on category change
             }}
-            className="appearance-none text-white bg-cyan-900 ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
+            className="appearance-none text-white bg-[#424242] hover:bg-[#424242da] ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
             value={category}
           >
             <option value="">All Categories</option>

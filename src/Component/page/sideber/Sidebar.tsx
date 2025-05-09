@@ -89,11 +89,6 @@ const Sidebar = () => {
           label: "All Blogs",
           icon: <List className="w-4 h-4" />,
         },
-        {
-          path: "/dashboard/getallorder",
-          label: "All Orders",
-          icon: <ShoppingCart className="w-4 h-4" />,
-        },
       ],
       adminOnly: true,
     },
@@ -122,16 +117,30 @@ const Sidebar = () => {
       adminOnly: true,
     },
     {
-      title: "Shop Management",
-      icon: <FaShop className="w-5 h-5" />,
+      title: "Order Management",
+      icon: <Car className="w-5 h-5" />,
       items: [
         {
-          path: "/dashboard/create-shop",
-          label: "Create Shop",
+          path: "/dashboard/all-orders",
+          label: "All Orders",
           icon: (
             <span className="w-4 h-4 flex items-center justify-center">+</span>
           ),
         },
+      ],
+      adminOnly: true,
+    },
+    {
+      title: "Shop Management",
+      icon: <FaShop className="w-5 h-5" />,
+      items: [
+        // {
+        //   path: "/dashboard/create-shop",
+        //   label: "Create Shop",
+        //   icon: (
+        //     <span className="w-4 h-4 flex items-center justify-center">+</span>
+        //   ),
+        // },
         {
           path: "/dashboard/details-shop",
           label: "Shop",
@@ -178,7 +187,7 @@ const Sidebar = () => {
       {/* Mobile Toggle Button */}
       <button
         onClick={toggleSidebar}
-        className="sm:hidden fixed top-4 left-4 z-50 p-2 rounded-md mt-1 bg-cyan-900 text-white shadow-lg"
+        className="sm:hidden fixed top-4 left-4 z-50 p-2 rounded-md mt-1 bg-[#424242] hover:bg-[#424242da] text-white shadow-lg"
       >
         {isSidebarOpen ? (
           <X className="w-6 h-6" />
@@ -189,20 +198,20 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed sm:relative w-64 h-full bg-gradient-to-b from-cyan-900 to-cyan-950 text-white transition-all duration-300 z-40
+        className={`fixed sm:relative w-64 h-full bg-gradient-to-b from-[#424242] to-[#424242eb] text-white transition-all duration-300 z-40
           ${isSidebarOpen ? "left-0" : "-left-64 sm:left-0"}`}
       >
         <div className="flex flex-col h-full">
           {/* Brand Logo */}
           <Link to="/">
             <div className="flex p-4 items-center">
-              <img src="/logo.png" className="w-14 h-12" alt="logo" />
+              <img src="/logo.png" className="w-14 h-5" alt="logo" />
               <h3 className="text-2xl font-bold">Shop</h3>
             </div>
           </Link>
 
           {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto pb-4">
+          <nav className="flex-1 overflow-y-auto pb-2">
             <ul className="space-y-1 px-3">
               {/* Main Menu Items */}
               {mainMenuItems
@@ -212,7 +221,7 @@ const Sidebar = () => {
                     <NavLink
                       to={item.path}
                       className={({ isActive }) =>
-                        `flex items-center p-3 rounded-lg transition-all ${
+                        `flex items-center py-1 px-2 mb-4 rounded-lg transition-all ${
                           isActive
                             ? "bg-white text-indigo-800"
                             : "hover:bg-[#424242]"

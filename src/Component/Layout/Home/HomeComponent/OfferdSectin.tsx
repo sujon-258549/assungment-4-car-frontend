@@ -9,7 +9,6 @@ import {
   FaTimesCircle,
   FaTag, // Added for offer badge
 } from "react-icons/fa";
-import "./style.css";
 import CommonHading from "./CommonHading";
 import CommonButton from "./CommonButton";
 import { Link } from "react-router-dom";
@@ -65,7 +64,7 @@ const OfferSection = () => {
                     style={{ zIndex: "222" }}
                     className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1 shadow-md ${
                       car.inStock !== false
-                        ? "bg-cyan-600 hover:bg-cyan-700"
+                        ? "bg-[#424242] hover:bg-[#424242da]"
                         : "bg-red-600 hover:bg-red-700"
                     } transition-colors`}
                   >
@@ -143,8 +142,8 @@ const OfferSection = () => {
 
                     {/* Buttons */}
                     <div className="flex justify-between mt-5 space-x-2">
-                      <Link to={`/detail-page/${car._id}`} className="">
-                        <Button className="bg-cyan-700 hover:bg-cyan-800">
+                      <Link to={`/detail-car/${car._id}`} className="">
+                        <Button className="bg-[#424242] hover:bg-[#424242da]">
                           <FaExternalLinkAlt size={12} />
                         </Button>
                       </Link>
@@ -154,7 +153,7 @@ const OfferSection = () => {
                           disabled={!car.inStock}
                           className={`flex-1 flex items-center justify-center space-x-2 ${
                             car.inStock
-                              ? "bg-cyan-700 hover:bg-cyan-800 text-white"
+                              ? "bg-[#424242] hover:bg-[#424242da] text-white"
                               : "bg-gray-500 cursor-not-allowed"
                           } transition-all py-2 px-3 rounded-md text-sm font-medium`}
                         >

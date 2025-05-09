@@ -7,6 +7,14 @@ import "./header.css";
 import { TUser, useCurrentUser } from "@/redux/features/assignment4/authSlice";
 import CommonButton from "./Home/HomeComponent/CommonButton";
 import DropdownProfile from "./DropdownProfile";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,9 +25,9 @@ const Header = () => {
   return (
     <section
       style={{ zIndex: "250" }}
-      className="  sticky top-0 transition-all duration-500 ease-in-out bg-white shadow-lg z-10 "
+      className="  sticky top-0 transition-all duration-500 ease-in-out bg-[#424242] shadow-lg z-10 "
     >
-      <header className="flex header max-w-6xl mx-auto md:px-9 px-6 font-sans min-h-[70px] tracking-wide relative z-50">
+      <header className="flex header max-w-6xl mx-auto px-4 font-sans min-h-[70px] tracking-wide relative z-50">
         <div className="flex  flex-wrap items-center justify-between gap-4 w-full max-w-screen-xl mx-auto">
           {/* Logo for Large Screens */}
           <a href="#" className="max-sm:hidden">
@@ -89,14 +97,25 @@ const Header = () => {
                   All Blog
                 </NavLink>
               </li>
-              <li className="max-lg:border-b max-lg:py-3 px-3">
-                <NavLink
-                  to={"/about-us"}
-                  className=" text-gray-600 font-bold block text-base"
-                >
-                  About{" "}
-                </NavLink>
-              </li>
+
+              <NavigationMenu className="-mt-1.5">
+                <NavigationMenuList className="">
+                  <NavigationMenuItem className="">
+                    <NavigationMenuTrigger className="text-[16px] text-white bg-transparent">
+                      About Us
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="flex flex-col w-28 gap-3">
+                      <NavigationMenuLink className="hover:bg-[#424242] px-20 mt-3 bg-[#424242d3]  mx-3 py-2 rounded-md text-white text-center ">
+                        <NavLink to={"/about-us"}>About </NavLink>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink className="hover:bg-[#424242] bg-[#424242d3]  mx-3 py-2 rounded-md text-white text-center  mb-3">
+                        About Product
+                      </NavigationMenuLink>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+
               <li className="max-lg:border-b max-lg:py-3 px-3">
                 <NavLink
                   to={"/contact"}

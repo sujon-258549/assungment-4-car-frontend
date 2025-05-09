@@ -40,7 +40,7 @@ const DetailsShop = () => {
                 className="object-cover "
               />
             </div>
-            <Button className="w-full py-5 bg-cyan-600 mt-2 text-[16px]">
+            <Button className="w-full py-5 bg-[#424242] hover:bg-[#424242da] mt-2 text-[16px]">
               <Link
                 to={"/dashboard/update-shop"}
                 className="flex gap-2 items-center"
@@ -111,7 +111,7 @@ const DetailsShop = () => {
               href={shop.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+              className="inline-block bg-[#424242] hover:bg-[#424242da] text-white px-4 py-2 rounded  transition"
             >
               Visit Website
             </a>

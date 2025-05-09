@@ -927,7 +927,7 @@ const UpdateCarShopForm = () => {
           <div className="pt-6">
             <Button
               type="submit"
-              className="w-full bg-cyan-600"
+              className="w-full bg-[#424242] hover:bg-[#424242da]"
               size="lg"
               disabled={isSubmitting}
               aria-busy={isSubmitting}

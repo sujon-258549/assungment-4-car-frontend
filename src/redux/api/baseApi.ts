@@ -5,7 +5,7 @@ import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
   // baseUrl: "http://localhost:5000/api",
-  baseUrl: "https://assignment2-eta-topaz.vercel.app/api",
+  baseUrl: "https://level-2-assignment-2-e9ar.onrender.com/api",
   // baseUrl: "https://assignment2-eta-topaz.vercel.app/api",
   //   credentials: "include",
   prepareHeaders: (headers, { getState }) => {

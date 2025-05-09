@@ -45,7 +45,7 @@ const Profile = () => {
   };
 
   return (
-    <Card className="max-w-2xl mx-auto overflow-hidden">
+    <Card className="max-w-5xl mx-auto overflow-hidden">
       <CardHeader className="bg-gradient-to-br from-cyan-950 to-cyan-600 text-white p-8 text-center relative">
         <div className="flex flex-col items-center">
           <Avatar className="h-24 w-24 border-4 border-white mb-4">
@@ -128,7 +128,7 @@ const Profile = () => {
         </div>
       </CardContent>
       <Link to={"/dashboard/update-profile"}>
-        <Button className="bg-cyan-800 ml-5">
+        <Button className="bg-[#424242] ml-7 hover:bg-[#424242da]">
           Update Profile <User2 />
         </Button>
       </Link>
