@@ -149,7 +149,7 @@ const SixCars = () => {
       {totalCars >= 8 && (
         <div className="mt-12 text-center">
           <Link to="/all-cars">
-            <div className="max-w-[165px] mx-auto">
+            <div className="md:max-w-[165px] mx-auto">
               <CommonButton
                 btnIcon={<FaExternalLinkAlt />}
                 text="View All Cars"

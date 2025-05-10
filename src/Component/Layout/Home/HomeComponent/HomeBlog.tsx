@@ -78,7 +78,7 @@ const HomeBlog = () => {
       {totalBlogs >= 8 && (
         <div className="mt-12 text-center">
           <Link to="/all-blogs">
-            <div className="max-w-[210px] mx-auto">
+            <div className=" md:max-w-[210px] mx-auto">
               <CommonButton
                 btnIcon={<FaExternalLinkAlt />}
                 text="View All Blog Posts"

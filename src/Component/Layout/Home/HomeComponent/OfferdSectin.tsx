@@ -175,7 +175,7 @@ const OfferSection = () => {
           {totalCars >= 8 && (
             <div className="mt-12 text-center">
               <Link to="/all-offer-cars">
-                <div className="max-w-[210px] mx-auto"></div>
+                <div className="md:max-w-[210px] mx-auto"></div>
                 <CommonButton
                   btnIcon={<FaExternalLinkAlt />}
                   text="View All Offers"
