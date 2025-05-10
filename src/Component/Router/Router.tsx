@@ -82,11 +82,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `details-blog/:id`,
-        element: (
-          <ProtectedRoute role={["admin"]}>
-            <DetailsBlog />
-          </ProtectedRoute>
-        ),
+        element: <DetailsBlog />,
       },
 
       {
@@ -109,7 +105,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Sidebar />,
+    element: (
+      <ProtectedRoute role={["admin", "user"]}>
+        <Sidebar />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true, // ✅ Redirects `/dashboard` to `/dashboard/admin`
@@ -131,15 +131,29 @@ export const router = createBrowserRouter([
       },
       {
         path: "change-password",
-        element: <ChangePassword />,
+        element: (
+          <ProtectedRoute role={["admin", "user"]}>
+            {" "}
+            <ChangePassword />{" "}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "update-profile",
-        element: <UpdateUser />,
+        element: (
+          <ProtectedRoute role={["admin", "user"]}>
+            <UpdateUser />{" "}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute role={["admin", "user"]}>
+            {" "}
+            <Profile />{" "}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "my-order",
@@ -175,11 +189,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-blog",
-        element: (
-          <ProtectedRoute role={["admin"]}>
-            <AdminBlog />
-          </ProtectedRoute>
-        ),
+        element: <AdminBlog />,
       },
 
       {
