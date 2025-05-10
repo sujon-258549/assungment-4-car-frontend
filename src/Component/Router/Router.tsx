@@ -66,7 +66,11 @@ export const router = createBrowserRouter([
       },
       {
         path: `/create-order/:_id`,
-        element: <CreateOrder />,
+        element: (
+          <ProtectedRoute role={["admin", "user"]}>
+            <CreateOrder />
+          </ProtectedRoute>
+        ),
       },
       {
         path: `/detail-car/:_id`,
