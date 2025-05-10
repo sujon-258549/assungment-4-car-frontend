@@ -12,6 +12,7 @@ import { toast } from "sonner";
 const UpdateCar = () => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>();
@@ -20,15 +21,17 @@ const UpdateCar = () => {
   const navigate = useNavigate();
   const { _id } = useParams();
   const { data: car, isLoading } = useGetSingleCarQuery(_id as string);
-  console.log(car);
   if (isLoading) {
     return <p className="text-center py-10">Loading...</p>;
   }
+  const now = new Date();
+  const formattedNow = now.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:mm"
 
   const handleFileUpload = (uploadedFiles: File[]) => {
     setFiles(uploadedFiles);
   };
-
+  const price = watch("price");
+  console.log(price);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Creating car...", { duration: 2000 });
 
@@ -105,8 +108,8 @@ const UpdateCar = () => {
 
       // Inventory
       quantity: Number(data.quantity),
-      inStock: data.inStock === "true",
-      isOffer: data.isOffer === "false",
+      inStock: data.inStock,
+      isOffer: data.isOffer,
       stockNumber: data.stockNumber,
       vin: data.vin,
       condition: data.condition,
@@ -114,7 +117,6 @@ const UpdateCar = () => {
       // Additional Info
       description: data.description,
       rating: data.rating ? Number(data.rating) : undefined,
-      reviewCount: data.reviewCount ? Number(data.reviewCount) : undefined,
       warranty: data.warrantyType
         ? {
             type: data.warrantyType,
@@ -555,51 +557,6 @@ const UpdateCar = () => {
             </div>
 
             {/* Pricing */}
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-semibold mb-2 border-b pb-1">
-                Pricing
-              </h3>
-            </div>
-            <div>
-              <label>Price*</label>
-              <input
-                defaultValue={car.price}
-                {...register("price", { required: true })}
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="Enter price"
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              />
-              {errors.price && (
-                <span className="text-red-500 text-xs">Price is required</span>
-              )}
-            </div>
-            <div>
-              <label>Original Price</label>
-              <input
-                defaultValue={car.originalPrice}
-                {...register("originalPrice")}
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="Enter original price"
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              />
-            </div>
-            <div>
-              <label>Currency</label>
-              <select
-                defaultValue={car.currency}
-                {...register("currency")}
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              >
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="GBP">GBP (£)</option>
-                <option value="JPY">JPY (¥)</option>
-              </select>
-            </div>
 
             {/* Lease Options */}
             <div className="md:col-span-2">
@@ -681,17 +638,7 @@ const UpdateCar = () => {
                 </span>
               )}
             </div>
-            <div>
-              <label>Is Offer</label>
-              <select
-                defaultValue={car.isOffer}
-                {...register("isOffer")}
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              >
-                <option value="false">No</option>
-                <option value="true">Yes</option>
-              </select>
-            </div>
+
             <div>
               <label>Stock Number</label>
               <input
@@ -765,17 +712,6 @@ const UpdateCar = () => {
                 className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
               />
             </div>
-            <div>
-              <label>Review Count</label>
-              <input
-                defaultValue={car.reviewCount}
-                {...register("reviewCount")}
-                type="number"
-                min="0"
-                placeholder="Enter review count"
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              />
-            </div>
 
             {/* Warranty */}
             <div className="md:col-span-2">
@@ -815,11 +751,79 @@ const UpdateCar = () => {
                 className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
               />
             </div>
+          </div>
+          <div className="md:col-span-2">
+            <h3 className="text-lg mt-4 font-semibold mb-2 border-b pb-1">
+              Pricing
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              <label>Original Price</label>
+              <input
+                defaultValue={car.originalPrice}
+                {...register("originalPrice")}
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Enter original price"
+                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+              />
+            </div>
+            <div>
+              <label>Currency</label>
+              <select
+                defaultValue={car.currency}
+                {...register("currency")}
+                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+              >
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
+            </div>
+          </div>
+          {/* Warranty */}
+          <div className="md:col-span-2 mt-4">
+            <h3 className="text-lg font-semibold mb-2 border-b pb-1">
+              Offered
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label>Price*</label>
+              <input
+                defaultValue={car.price}
+                {...register("price", { required: true })}
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Enter price"
+                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+              />
+              {errors.price && (
+                <span className="text-red-500 text-xs">Price is required</span>
+              )}
+            </div>
+            <div>
+              <label>Is Offer</label>
+              <select
+                disabled={price <= 0}
+                defaultValue={car.isOffer}
+                {...register("isOffer")}
+                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+              >
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
             <div>
               <label>Offered Time</label>
               <input
-                defaultValue={car.warranty?.offerDateAndTime}
+                disabled={price <= 0}
                 {...register("offerDateAndTime")}
+                defaultValue={car.warranty?.offerDateAndTime || formattedNow}
                 type="date"
                 min="0"
                 placeholder="Enter warranty months"

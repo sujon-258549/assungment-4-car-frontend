@@ -144,7 +144,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="py-16 ">
+    <section className=" py-10 lg:py-20 md:py-16 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <CommonHading color="black" text="Our Premium Services" />

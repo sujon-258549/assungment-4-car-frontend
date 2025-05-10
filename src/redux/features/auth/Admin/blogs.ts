@@ -16,6 +16,7 @@ const blogApi = baseApi.injectEndpoints({
         method: "PUT",
         body: args.data,
       }),
+      invalidatesTags: ["cars"],
     }),
     getAllBlogs: builder.query({
       query: (args) => {

@@ -1,4 +1,5 @@
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import CommonHading from "./CommonHading";
 
 const TeamSection = () => {
   const teamMembers = [
@@ -45,15 +46,11 @@ const TeamSection = () => {
   ];
 
   return (
-    <section className="py-12 ">
+    <section className=" md:py-14 lg:py-16 py-10 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h2
-            className="text-3xl font-bold text-black
-           sm:text-4xl"
-          >
-            Our Expert Team
-          </h2>
+          <CommonHading color="black" text=" Our Expert Team" />
+
           <p className="mt-2 text-gray-600">
             Skilled professionals for your vehicle
           </p>

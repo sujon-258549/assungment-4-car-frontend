@@ -99,9 +99,18 @@ const GetAllCar = () => {
       key: "price",
     },
     {
-      title: "Is Offer",
+      title: "isOffer",
       dataIndex: "isOffer",
       key: "isOffer",
+      render: (isOffer: boolean) => (
+        <span
+          className={`px-2 py-1 rounded ${
+            isOffer ? "bg-green-500 text-white" : "bg-red-500 text-white"
+          }`}
+        >
+          {isOffer ? "Offer" : "No offer"}
+        </span>
+      ),
     },
     {
       title: "Stock",

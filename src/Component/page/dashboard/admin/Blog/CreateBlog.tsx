@@ -82,6 +82,7 @@ export default function CreateBlog() {
         throw new Error("Provider image is required");
       }
       const result = await createBlogs(formData);
+      console.log(result);
       if (result?.data?.success) {
         toast.success(
           result.data?.message || "Blog post created successfully",
@@ -129,8 +130,11 @@ export default function CreateBlog() {
                         placeholder="Your amazing blog post title"
                         onChange={(e) => {
                           field.onChange(e);
-                          if (!form.getValues("slug")) {
-                            form.setValue("slug", generateSlug(e.target.value));
+                          if (!form.getValues("title")) {
+                            form.setValue(
+                              "title",
+                              generateSlug(e.target.value)
+                            );
                           }
                         }}
                       />

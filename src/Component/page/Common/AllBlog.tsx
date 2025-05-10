@@ -93,42 +93,32 @@ const AllBlog = () => {
           </form>
 
           {/* Category Select */}
-          <div className="relative group rounded-lg w-64 bg-[#424242] hover:bg-[#424242da] overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
-            <svg
-              y={0}
-              xmlns="http://www.w3.org/2000/svg"
-              x={0}
-              width={100}
-              viewBox="0 0 100 100"
-              preserveAspectRatio="xMidYMid meet"
-              height={100}
-              className="w-8 z-50 h-8 absolute right-0 -rotate-45 stroke-white top-1.5 group-hover:rotate-0 duration-300"
-            >
-              <path
-                strokeWidth={4}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                fill="none"
-                d="M60.7,53.6,50,64.3m0,0L39.3,53.6M50,64.3V35.7m0,46.4A32.1,32.1,0,1,1,82.1,50,32.1,32.1,0,0,1,50,82.1Z"
-                className="svg-stroke-primary"
-              />
-            </svg>
+          <div className="min-w-[200px]">
             <select
-              onChange={(e) => setCategory(e.target?.value)}
-              className="appearance-none text-white bg-[#424242] hover:bg-[#424242da] ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
+              onChange={(e) => {
+                setCategory(e.target.value); // আপনার Trim state ফাংশন
+              }}
+              className="w-full text-white bg-[#424242] hover:bg-[#424242da] border border-neutral-500 text-sm font-bold rounded-lg p-2.5 focus:ring-cyan-900 focus:border-cyan-900"
             >
-              <option value="">All Categories</option>
+              <option value="">All Trim</option>
               <option value="Technology">Technology</option>
+              <option value="Business">Business</option>
+              <option value="Health">Health</option>
               <option value="Travel">Travel</option>
               <option value="Food">Food</option>
               <option value="Lifestyle">Lifestyle</option>
-              <option value="Business">Business</option>
+              <option value="Performance">Performance</option>
+              <option value="Classic">Classic</option>
+              <option value="Electric">Electric</option>
+              <option value="Off-Road">Off-Road</option>
+              <option value="Luxury">Luxury</option>
+              <option value="Custom">Custom</option>
             </select>
           </div>
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-2 mt-5 md:mt-10 lg:mt-16 mt5 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 mt-5 md:mt-10 lg:mt-16 mt5 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {blogs.map((blog: TBlog) => (
             <div
               key={blog._id}
@@ -153,7 +143,7 @@ const AllBlog = () => {
                 </div>
 
                 <h3 className="text-[18px] font-bold mb-2 hover:text-cyan-700 transition-colors">
-                  {blog?.title}
+                  {blog?.title.slice(0, 15)}
                 </h3>
 
                 <p className="text-gray-200 mb-4 line-clamp-2">

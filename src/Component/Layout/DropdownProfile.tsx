@@ -47,7 +47,9 @@ const DropdownProfile = () => {
             {" "}
             <Link to={"/dashboard/profile"}> Profile</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link to={"/dashboard/my-order"}> My orders</Link>{" "}
+          </DropdownMenuItem>
           <DropdownMenuItem>Team</DropdownMenuItem>
           <DropdownMenuItem>
             <Button

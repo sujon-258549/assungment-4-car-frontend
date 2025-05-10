@@ -19,7 +19,7 @@ const HomeBlog = () => {
   const totalBlogs = blogs.length || 0;
 
   return (
-    <div className="px-4 max-w-6xl mx-auto py-14 md:pt-24 md:px-8">
+    <div className="px-4 max-w-6xl mx-auto py-5 md:py-14 md:pt-16 md:px-8">
       <div className="text-center mb-12">
         <CommonHading color="black" text="Latest Blog Posts" />
         <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -27,7 +27,7 @@ const HomeBlog = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 mt-5 md:mt-10 lg:mt-16 mt5 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 mt-5 md:mt-10 lg:mt-16 mt5 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {blogs.map((blog: TBlog) => (
           <div
             key={blog._id}
@@ -52,7 +52,7 @@ const HomeBlog = () => {
               </div>
 
               <h3 className="text-[18px] font-bold mb-2 hover:text-cyan-700 transition-colors">
-                {blog?.title}
+                {blog?.title?.slice(0, 15)}
               </h3>
 
               <p className="text-gray-200 mb-4 line-clamp-2">
@@ -78,10 +78,12 @@ const HomeBlog = () => {
       {totalBlogs >= 8 && (
         <div className="mt-12 text-center">
           <Link to="/all-blogs">
-            <CommonButton
-              btnIcon={<FaExternalLinkAlt />}
-              text="View All Blog Posts"
-            />
+            <div className="max-w-[210px] mx-auto">
+              <CommonButton
+                btnIcon={<FaExternalLinkAlt />}
+                text="View All Blog Posts"
+              />
+            </div>
           </Link>
         </div>
       )}

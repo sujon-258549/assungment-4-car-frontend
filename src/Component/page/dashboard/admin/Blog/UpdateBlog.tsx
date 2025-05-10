@@ -39,6 +39,12 @@ const BLOG_CATEGORIES = [
   "Travel",
   "Food",
   "Lifestyle",
+  "Performance",
+  "Classic",
+  "Electric",
+  "Off-Road",
+  "Luxury",
+  "Custom",
 ] as const;
 
 const blogSchema = z.object({
@@ -77,7 +83,7 @@ export default function UpdateBlog() {
         title: blogData.title,
         excerpt: blogData.excerpt,
         date: blogData.date,
-        category: blogData.category as BlogFormValues["category"],
+        category: blogData.category,
         slug: blogData.slug,
       });
     }
@@ -119,12 +125,16 @@ export default function UpdateBlog() {
         });
         navigate("/dashboard/all-blog");
       } else {
-        toast.error(result?.data?.message || "Failed to update blog post", {
-          id: toastId,
-        });
+        toast.error(
+          // @ts-expect-error data
+          result?.error?.data?.message || "Failed to update blog post",
+          {
+            id: toastId,
+          }
+        );
       }
     } catch (error: any) {
-      toast.error(error.message || "An unexpected error occurred", {
+      toast.error(error?.data?.message || "Failed to update blog post", {
         id: toastId,
       });
       console.error("Update error:", error);
@@ -157,8 +167,11 @@ export default function UpdateBlog() {
                         placeholder="Your amazing blog post title"
                         onChange={(e) => {
                           field.onChange(e);
-                          if (!form.getValues("slug")) {
-                            form.setValue("slug", generateSlug(e.target.value));
+                          if (!form.getValues("title")) {
+                            form.setValue(
+                              "title",
+                              generateSlug(e.target.value)
+                            );
                           }
                         }}
                       />

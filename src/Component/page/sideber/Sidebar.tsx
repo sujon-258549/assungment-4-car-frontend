@@ -12,6 +12,7 @@ import {
   ChevronUp,
   Menu,
   X,
+  ListOrdered,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch } from "@/redux/hooks";
@@ -108,17 +109,12 @@ const Sidebar = () => {
           label: "All Cars",
           icon: <List className="w-4 h-4" />,
         },
-        {
-          path: "/dashboard/getallorder",
-          label: "All Orders",
-          icon: <ShoppingCart className="w-4 h-4" />,
-        },
       ],
       adminOnly: true,
     },
     {
       title: "Order Management",
-      icon: <Car className="w-5 h-5" />,
+      icon: <ListOrdered className="w-5 h-5" />,
       items: [
         {
           path: "/dashboard/all-orders",

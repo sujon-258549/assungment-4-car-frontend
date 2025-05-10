@@ -7,6 +7,7 @@ import {
   FaGasPump,
   FaShoppingCart,
   FaTachometerAlt,
+  FaTag,
   FaTimesCircle,
 } from "react-icons/fa";
 import CommonHading from "@/Component/Layout/Home/HomeComponent/CommonHading";
@@ -17,17 +18,42 @@ import Footer from "@/Component/Layout/Footer";
 import Loader from "@/Component/Utils/Loader";
 import { Button } from "@/components/ui/button";
 import { TCar } from "@/types/car";
+import { Slider } from "@/components/ui/slider";
 const AllOfferCard = () => {
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
   const [page, setPage] = useState<any>();
   const [limit, setLimit] = useState<any>();
-  console.log(page);
+  const [rating, setRating] = useState<number | null>(null);
+  const [currency, setCurrency] = useState<string | undefined>();
+  const [doors, setDoors] = useState<number | null>(null);
+  const [brand, setBrand] = useState("");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
 
-  console.log(category);
+  console.log("slider", priceRange);
   const queryParams = [{ name: "searchTerm", value: search }];
-  if (category) {
-    queryParams.push({ name: "category", value: category });
+
+  // Add to your queryParams construction
+  // queryParams.push({ name: "minPrice", value: priceRange[0].toString() });
+  // queryParams.push({ name: "maxPrice", value: priceRange[1].toString() });
+  if (rating) {
+    // @ts-expect-error value is number
+    queryParams.push({ name: "rating", value: rating });
+  }
+  if (currency) {
+    console.log("queryParams", currency, queryParams);
+    queryParams.push({ name: "currency", value: currency });
+  }
+  if (priceRange[0]) {
+    // @ts-expect-error value
+    queryParams.push({ name: "originalPrice", value: priceRange[1] });
+  }
+
+  if (doors) {
+    // @ts-expect-error value is number
+    queryParams.push({ name: "doors", value: doors });
+  }
+  if (brand) {
+    queryParams.push({ name: "brand", value: brand });
   }
   if (page) {
     queryParams.push({ name: "page", value: page });
@@ -55,83 +81,156 @@ const AllOfferCard = () => {
     <>
       <div className="max-w-6xl mx-auto px-4 py-10 md:pt-16 md:px-8">
         <div className="text-center mb-5 md:mb-10">
-          <CommonHading color="black" text="All Cars" />
+          <CommonHading color="black" text="All Offered Cars" />
         </div>
         {/* search short and filter use */}
-        <div className="flex gap-5 justify-center flex-wrap mb-5 ">
-          <form onSubmit={handelSearch} className="flex items-end">
-            <label className="sr-only" htmlFor="voice-search">
-              Search
-            </label>
-            <div className="relative w-full">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <FaCar />
+
+        <div className="flex flex-col gap-4 mb-8">
+          {/* Search Form */}
+          <div className="grid grid-cols-1 gap-7 md:grid-cols-2 ">
+            <form
+              onSubmit={handelSearch}
+              className="flex w-full h-[42px] max-w-sm mx-auto"
+            >
+              <div className="relative flex-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <FaCar className="text-gray-500" />
+                </div>
+                <input
+                  placeholder="Search by brand, model..."
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-cyan-900 focus:border-blue-500 block w-full pl-10 p-2.5"
+                  id="car-search"
+                  type="text"
+                  name="search"
+                  defaultValue={search}
+                />
               </div>
-              <input
-                placeholder="Search..."
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-cyan-900 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                id="voice-search"
-                type="text"
-                name="search"
+              <button
+                className="inline-flex items-center py-2.5 px-4 text-sm font-medium text-white bg-[#424242] hover:bg-[#424242da] rounded-r-lg border border-blue-700 transition-colors"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+            <div className="w-full p-4 bg-[#424242] rounded-lg mb-4">
+              <div className="flex justify-between mb-2">
+                <span className="text-white">Price Range</span>
+                <span className="text-white">
+                  ${priceRange[0].toLocaleString()} - $
+                  {priceRange[1].toLocaleString()}
+                </span>
+              </div>
+              <Slider
+                min={0}
+                max={100000}
+                step={10}
+                value={priceRange}
+                onValueChange={(value) =>
+                  setPriceRange(value as [number, number])
+                }
+                className="w-full"
               />
             </div>
-            <button
-              className="inline-flex items-center py-2.5 px-3  text-sm font-medium text-white bg-[#424242] hover:bg-[#424242da] rounded-r-lg border border-blue-700"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
+          </div>
 
-          {/* /*select */}
-          <div className="relative group rounded-lg w-64 bg-[#424242] hover:bg-[#424242da] overflow-hidden before:absolute before:w-12 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9]">
-            <svg
-              y={0}
-              xmlns="http://www.w3.org/2000/svg"
-              x={0}
-              width={100}
-              viewBox="0 0 100 100"
-              preserveAspectRatio="xMidYMid meet"
-              height={100}
-              className="w-8 z-50 h-8 absolute right-0 -rotate-45 stroke-white top-1.5 group-hover:rotate-0 duration-300"
-            >
-              <path
-                strokeWidth={4}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                fill="none"
-                d="M60.7,53.6,50,64.3m0,0L39.3,53.6M50,64.3V35.7m0,46.4A32.1,32.1,0,1,1,82.1,50,32.1,32.1,0,0,1,50,82.1Z"
-                className="svg-stroke-primary"
-              />
-            </svg>
-            <select
-              onChange={(e) => setCategory(e.target?.value)}
-              className="appearance-none text-white bg-[#424242] hover:bg-[#424242da] ring-0 outline-none border border-neutral-500 text-sm font-bold rounded-lg focus:ring-cyan-900 focus:border-cyan-900 block w-full p-2.5 pr-10"
-            >
-              <option value="Sedan">Sedan</option>
-              <option value="SUV">SUV</option>
-              <option value="Truck">Truck</option>
-              <option value="Coupe">Coupe</option>
-              <option value="Convertible">Convertible</option>
-            </select>
+          {/* Filter Row */}
+          <div className="flex flex-wrap gap-3 justify-center">
+            {/* Brand Filter */}
+            <div className="min-w-[200px]">
+              <select
+                onChange={(e) => {
+                  setBrand(e.target.value);
+                }}
+                className="w-full text-white bg-[#424242] hover:bg-[#424242da] border border-neutral-500 text-sm font-bold rounded-lg p-2.5 focus:ring-cyan-900 focus:border-cyan-900"
+              >
+                <option value="">All Brand</option>
+                <option value="Tesla">Tesla</option>
+                <option value="Audi">Audi</option>
+                <option value="Mercedes">Mercedes</option>
+                <option value="Honda">Honda</option>
+                <option value="Ford">Ford</option>
+                <option value="BMW">BMW</option>
+                <option value="Toyota">Toyota</option>
+              </select>
+            </div>
+
+            {/* Rating Filter */}
+            <div className="min-w-[200px]">
+              <select
+                onChange={(e) => {
+                  setRating(e.target.value ? Number(e.target.value) : null);
+                  setPage(1);
+                }}
+                className="w-full text-white bg-[#424242] hover:bg-[#424242da] border border-neutral-500 text-sm font-bold rounded-lg p-2.5 focus:ring-cyan-900 focus:border-cyan-900"
+              >
+                <option value="">All Ratings</option>
+                <option value="1">1+ Star</option>
+                <option value="2">2+ Stars</option>
+                <option value="3">3+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="5">5 Stars</option>
+              </select>
+            </div>
+
+            {/* Currency Filter */}
+            <div className="min-w-[120px]">
+              <select
+                onChange={(e) => setCurrency(e.target.value)}
+                className="w-full text-white bg-[#424242] hover:bg-[#424242da] border border-neutral-500 text-sm font-bold rounded-lg p-2.5 focus:ring-cyan-900 focus:border-cyan-900"
+              >
+                <option value="">All $</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+              </select>
+            </div>
+
+            {/* Doors Filter */}
+            <div className="min-w-[150px]">
+              <select
+                value={doors || ""}
+                onChange={(e) => {
+                  setDoors(e.target.value ? Number(e.target.value) : null);
+                }}
+                className="w-full text-white bg-[#424242] hover:bg-[#424242da] border border-neutral-500 text-sm font-bold rounded-lg p-2.5 focus:ring-cyan-900 focus:border-cyan-900"
+              >
+                <option value="">All Doors</option>
+                <option value="2">2 Doors</option>
+                <option value="4">4 Doors</option>
+                <option value="5">5 Doors</option>
+                <option value="6">6 Doors</option>
+              </select>
+            </div>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 mt-5 md:mt-10 lg:mt-16 lg:grid-cols-4 gap-6">
-          {carData?.data?.data?.map((car: TCar) => {
+          {carData?.data?.data.map((car: TCar) => {
             return (
               <div
                 key={car._id}
                 className={`relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-[#000] group`}
               >
+                {/* Offer Badge */}
+                {car.isOffer && (
+                  <div
+                    style={{ zIndex: "222" }}
+                    className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold text-white bg-red-600 hover:bg-red-700 flex items-center gap-1 shadow-md transition-colors"
+                  >
+                    <FaTag size={10} /> Special Offer
+                  </div>
+                )}
+
+                {/* Stock Status Badge */}
                 <div
                   style={{ zIndex: "222" }}
-                  className={`absolute top-3 right-3  px-3 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1 shadow-md ${
-                    car.inStock !== false // Changed to explicitly check for false
-                      ? "bg-[#424242] hover:bg-[#424242da] "
+                  className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1 shadow-md ${
+                    car.inStock !== false
+                      ? "bg-[#424242] hover:bg-[#424242da]"
                       : "bg-red-600 hover:bg-red-700"
                   } transition-colors`}
                 >
-                  {car.inStock !== false ? ( // Changed to explicitly check for false
+                  {car.inStock !== false ? (
                     <>
                       <FaCheckCircle size={10} /> In Stock
                     </>
@@ -159,9 +258,16 @@ const AllOfferCard = () => {
                       <h3 className="text-xl font-bold">{car.brand}</h3>
                       <p className="text-cyan-100 text-sm">{car.model}</p>
                     </div>
-                    <span className="text-lg font-bold bg-white bg-opacity-20 px-2 py-1 rounded">
-                      ${car.price.toLocaleString()}
-                    </span>
+                    <div className="flex flex-col items-end">
+                      {car.originalPrice && (
+                        <span className="text-sm line-through text-gray-400">
+                          ${car.originalPrice.toLocaleString()}
+                        </span>
+                      )}
+                      <span className="text-lg font-bold bg-white bg-opacity-20 px-2 py-1 rounded">
+                        ${car.price.toLocaleString()}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Specifications */}
@@ -198,7 +304,7 @@ const AllOfferCard = () => {
 
                   {/* Buttons */}
                   <div className="flex justify-between mt-5 space-x-2">
-                    <Link to={`/detail-page/${car._id}`} className="">
+                    <Link to={`/detail-car/${car._id}`} className="">
                       <Button className="bg-[#424242] hover:bg-[#424242da]">
                         <FaExternalLinkAlt size={12} />
                       </Button>

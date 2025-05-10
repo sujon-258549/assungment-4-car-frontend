@@ -26,7 +26,7 @@ const OfferSection = () => {
   const totalCars = carData?.data?.data?.length || 0;
 
   return (
-    <div className="px-4 max-w-6xl mx-auto py-14 md:pt-24 md:px-8">
+    <div className="px-4 max-w-6xl mx-auto py-6 md:py-14 md:px-8">
       <div className="text-center mb-12">
         <CommonHading color="black" text="Special Offer Vehicles" />
         <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -175,6 +175,7 @@ const OfferSection = () => {
           {totalCars >= 8 && (
             <div className="mt-12 text-center">
               <Link to="/all-offer-cars">
+                <div className="max-w-[210px] mx-auto"></div>
                 <CommonButton
                   btnIcon={<FaExternalLinkAlt />}
                   text="View All Offers"

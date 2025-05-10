@@ -26,7 +26,7 @@ const SixCars = () => {
   const totalCars = carData?.data?.data?.length || 0;
 
   return (
-    <div className="px-4 max-w-6xl mx-auto py-14 md:pt-24 md:px-8">
+    <div className="px-4 max-w-6xl mx-auto py-14 md:pt-20  md:mt-10 md:px-8">
       <div className="text-center mb-12">
         <CommonHading color="black" text="Premium Vehicle Collection" />
         <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -149,10 +149,12 @@ const SixCars = () => {
       {totalCars >= 8 && (
         <div className="mt-12 text-center">
           <Link to="/all-cars">
-            <CommonButton
-              btnIcon={<FaExternalLinkAlt />}
-              text="View All Vehicles"
-            />
+            <div className="max-w-[165px] mx-auto">
+              <CommonButton
+                btnIcon={<FaExternalLinkAlt />}
+                text="View All Cars"
+              />
+            </div>
           </Link>
         </div>
       )}

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 const CreateCar = () => {
   const [files, setFiles] = useState<File[]>([]);
+  console.log(files);
   const {
     register,
     handleSubmit,
@@ -16,7 +17,9 @@ const CreateCar = () => {
   const [createCar] = useCreateCarMutation();
   const navigate = useNavigate();
   const handleFileUpload = (uploadedFiles: File[]) => {
-    setFiles(uploadedFiles);
+    if (files.length < 3) {
+      setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+    }
   };
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Creating car...", { duration: 2000 });
@@ -79,7 +82,7 @@ const CreateCar = () => {
       },
 
       // Pricing
-      price: Number(data.price),
+      price: Number(0),
       originalPrice: data.originalPrice
         ? Number(data.originalPrice)
         : undefined,
@@ -95,7 +98,7 @@ const CreateCar = () => {
       // Inventory
       quantity: Number(data.quantity),
       inStock: data.inStock === true,
-      isOffer: data.isOffer === false,
+      isOffer: false,
       stockNumber: data.stockNumber,
       vin: data.vin,
       condition: data.condition,
@@ -103,7 +106,6 @@ const CreateCar = () => {
       // Additional Info
       description: data.description,
       rating: data.rating ? Number(data.rating) : undefined,
-      reviewCount: data.reviewCount ? Number(data.reviewCount) : undefined,
       warranty: data.warrantyType
         ? {
             type: data.warrantyType,
@@ -116,9 +118,9 @@ const CreateCar = () => {
     try {
       const formData = new FormData();
       formData.append("data", JSON.stringify(carData));
-      for (const file of files) {
-        formData.append("images", file); // matches 'images' field name expected by multer
-      }
+      files.forEach((file) => {
+        formData.append("images", file); // 'images' should match server-side field name
+      });
 
       console.log("fileData", carData, files, formData);
       const result = await createCar(formData);
@@ -354,7 +356,6 @@ const CreateCar = () => {
                 <option value="Diesel">Diesel</option>
                 <option value="Electric">Electric</option>
                 <option value="Hybrid">Hybrid</option>
-                <option value="Plug-in Hybrid">Plug-in Hybrid</option>
               </select>
               {errors.fuelType && (
                 <span className="text-red-500 text-xs">
@@ -513,20 +514,7 @@ const CreateCar = () => {
                 Pricing
               </h3>
             </div>
-            <div>
-              <label>Price*</label>
-              <input
-                {...register("price", { required: false })}
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="Enter price"
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              />
-              {errors.price && (
-                <span className="text-red-500 text-xs">Price is required</span>
-              )}
-            </div>
+
             <div>
               <label>Original Price</label>
               <input
@@ -626,16 +614,7 @@ const CreateCar = () => {
                 </span>
               )}
             </div>
-            <div>
-              <label>Is Offer</label>
-              <select
-                {...register("isOffer")}
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              >
-                <option value="false">No</option>
-                <option value="true">Yes</option>
-              </select>
-            </div>
+
             <div>
               <label>Stock Number</label>
               <input
@@ -701,16 +680,6 @@ const CreateCar = () => {
                 max="5"
                 step="0.1"
                 placeholder="Enter rating"
-                className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
-              />
-            </div>
-            <div>
-              <label>Review Count</label>
-              <input
-                {...register("reviewCount")}
-                type="number"
-                min="0"
-                placeholder="Enter review count"
                 className="px-4 py-3 mt-2 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
               />
             </div>
