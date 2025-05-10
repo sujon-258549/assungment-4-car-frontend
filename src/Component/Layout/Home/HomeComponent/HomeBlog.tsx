@@ -77,7 +77,7 @@ const HomeBlog = () => {
       {/* Conditional View All Button */}
       {totalBlogs >= 8 && (
         <div className="mt-12 text-center">
-          <Link to="/all-blogs">
+          <Link to="/all-blog">
             <div className=" md:max-w-[210px] mx-auto">
               <CommonButton
                 btnIcon={<FaExternalLinkAlt />}

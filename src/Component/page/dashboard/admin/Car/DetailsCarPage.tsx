@@ -253,20 +253,29 @@ const DetailsCarPage = () => {
               <div className="mb-4">
                 {car.originalPrice && car.originalPrice > car.price && (
                   <div className="flex items-center mb-1">
-                    <span className="text-sm text-gray-400 line-through mr-2">
-                      {car.currency === "USD" ? "$" : car.currency}{" "}
-                      {car.originalPrice?.toLocaleString()}
-                    </span>
-                    <span className="bg-red-900/30 text-red-400 text-xs font-medium px-2 py-0.5 rounded">
-                      Save{" "}
-                      {Math.round((1 - car.price / car.originalPrice) * 100)}%
-                    </span>
+                    {car.price > 0 && (
+                      <div>
+                        <span className="text-sm text-gray-400 line-through mr-2">
+                          {car.currency === "USD" ? "$" : car.currency}{" "}
+                          {car.originalPrice?.toLocaleString()}
+                        </span>
+                        <span className="bg-red-900/30 text-red-400 text-xs font-medium px-2 py-0.5 rounded">
+                          Save{" "}
+                          {Math.round(
+                            (1 - car.price / car.originalPrice) * 100
+                          )}
+                          %
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
                 <div className="flex items-end">
                   <span className="text-3xl font-bold text-white">
                     {car.currency === "USD" ? "$" : car.currency}{" "}
-                    {car.price?.toLocaleString()}
+                    {car.price > 0
+                      ? car.price
+                      : car.originalPrice?.toLocaleString()}
                   </span>
                   {car.leaseOptions && (
                     <span className="text-sm text-gray-400 ml-2">

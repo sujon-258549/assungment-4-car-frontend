@@ -278,7 +278,7 @@ const AllCorCard = () => {
                   </div>
                   {/* Buttons */}
                   <div className="flex justify-between mt-5 space-x-2">
-                    <Link to={`/detail-page/${car._id}`} className="">
+                    <Link to={`/detail-car/${car._id}`} className="">
                       <Button className="bg-[#424242] hover:bg-[#424242da]">
                         <FaExternalLinkAlt size={12} />
                       </Button>
