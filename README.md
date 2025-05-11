@@ -1,61 +1,61 @@
-🚗 CrShop - Car E-Commerce Platform
+# 🚗 CrShop - Car E-Commerce Platform
+
 A full-stack car marketplace designed for a seamless experience in browsing, purchasing, and managing vehicle listings.
 
-🔗 Live Demo & Repositories
-Live Demo: CrShop on Vercel
+---
 
-Backend (Server): [GitHub Repository](https://github.com/sujon-258549/level-2-assignment-2.git)
+## 🔗 Live Demo & Repositories
 
-Frontend Repository: [[Add your frontend GitHub repo URL here]](https://github.com/sujon-258549/assungment-4-car-frontend.git)
+- 🌐 **Live Demo:** [CrShop on Vercel](https://car-shop-one-indol.vercel.app/)
+- 💻 **Frontend Repository:** [GitHub - Frontend](https://github.com/sujon-258549/assungment-4-car-frontend.git)
+- 🖥️ **Backend Repository:** [GitHub - Backend](https://github.com/sujon-258549/level-2-assignment-2.git)
 
-✨ Core Features
-🔐 User Authentication: Secure JWT-based login/registration
+---
 
-🚘 Car Listings: Browse & filter cars by brand, price, mileage
+## ✨ Core Features
 
-🛒 Shopping Cart: Save favorites, prepare for checkout
+| Feature | Description |
+|--------|-------------|
+| 🔐 **User Authentication** | Secure JWT-based login and registration |
+| 🚘 **Car Listings** | Browse and filter vehicles by brand, price, and mileage |
+| 🛒 **Shopping Cart** | Save favorites and prepare for checkout |
+| 🛠️ **Admin Dashboard** | Admins can manage cars, users, and orders |
+| 📱 **Responsive Design** | Fully responsive, mobile-first user interface |
 
-🛠️ Admin Dashboard: Manage cars, users, and orders
+---
 
-📱 Responsive Design: Mobile-first and fully adaptable UI
+## 🛠️ Technologies Used
 
-🛠️ Technologies Used
-Frontend:
+| Layer      | Technology              | Version / Stack |
+|------------|--------------------------|------------------|
+| **Frontend** | React.js                | v18+             |
+|            | Tailwind CSS             | v3+              |
+|            | Redux Toolkit            | -                |
+| **Backend**  | Node.js                 | v18+             |
+|            | Express.js               | v4.18+           |
+|            | MongoDB + Mongoose       | -                |
+| **Other Tools** | Cloudinary (Image Hosting) | -          |
+|            | JWT (Auth)               | -                |
 
-React.js (v18+)
+---
 
-Tailwind CSS (v3+)
+## 🚀 Local Development Setup
 
-Redux Toolkit
+### 1. Clone the Repositories
 
-Backend:
-
-Node.js (v18+)
-
-Express.js (v4.18+)
-
-MongoDB + Mongoose
-
-🚀 How to Run Locally
-Clone Repositories:
-
-bash
-Copy
-Edit
-git clone [frontend-repo-url]
+`bash
+git clone https://github.com/sujon-258549/assungment-4-car-frontend.git
 git clone https://github.com/sujon-258549/level-2-assignment-2.git
-Add Environment Variables:
+2. Set Up Environment Variables
 Create .env files in both frontend and backend directories.
 
-Example .env for Backend:
-
+🔧 Example .env (Backend)
 env
 Copy
 Edit
 MONGODB_URI=your_connection_string
 JWT_SECRET=your_secret_key
-Install Dependencies & Start Servers:
-
+3. Install Dependencies & Start Servers
 bash
 Copy
 Edit
@@ -65,36 +65,23 @@ npm install
 npm start
 
 # Frontend
-cd ../frontend
+cd ../assungment-4-car-frontend
 npm install
 npm run dev
 🧗 Challenges & Solutions
-Data Relationships: Designed complex user-owner-car schemas with Mongoose
-
-Image Uploads: Integrated Cloudinary for media hosting
-
-Deployment: Resolved CORS issues between Vercel & Render environments
+Challenge	Solution
+🔗 Data Relationships	Designed normalized schemas with Mongoose for user-owner-car linkage
+📷 Image Uploads	Integrated Cloudinary for scalable image hosting
+🔄 CORS Deployment Issues	Handled Vercel–Render communication via CORS middleware
 
 🔮 Future Plans
-🤖 AI Car Recommendations:
+Feature	Description
+🤖 AI Recommendations	Suggest vehicles based on user behavior, location, and preferences using AI (TensorFlow.js, Flask API, OpenAI Embeddings)
+🗓️ Test Drive Booking	Integrated calendar, with SMS/email reminders for appointments
+🔍 Advanced Filters	Search similar cars by image, compare fuel efficiency, and features
+💳 Payment Integration	Seamless checkout with secure payment gateways
+📷 AR Preview	Use WebAR to visualize cars in real-world environments
 
-Based on user behavior, location trends, and budget
-
-Tools: Python Flask API, TensorFlow.js, or OpenAI embeddings
-
-🗓️ Test Drive Booking System:
-
-Calendar integration, SMS/email reminders
-
-🔍 Advanced Search & Comparison:
-
-"Find Similar Cars" using image recognition
-
-Fuel efficiency and feature comparison
-
-🧾 Payment Integration & Checkout
-
-📷 AR Previews:
 
 Use WebAR to visualize cars in real-life environments
 ![screencapture-localhost-5173-2025-05-11-11_24_31](https://github.com/user-attachments/assets/13d8c047-700d-4863-95c6-16fbf86449fe)
