@@ -97,7 +97,6 @@ Fuel efficiency and feature comparison
 📷 AR Previews:
 
 Use WebAR to visualize cars in real-life environments
-
-🖼️ Screenshot
+![screencapture-localhost-5173-2025-05-11-11_24_31](https://github.com/user-attachments/assets/13d8c047-700d-4863-95c6-16fbf86449fe)
 
 
