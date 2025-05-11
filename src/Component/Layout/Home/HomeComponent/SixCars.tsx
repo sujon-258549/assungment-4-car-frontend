@@ -28,9 +28,10 @@ const SixCars = () => {
   return (
     <div className="px-4 max-w-6xl mx-auto py-14 md:pt-20  md:mt-10 md:px-8">
       <div className="text-center mb-12">
-        <CommonHading color="black" text="Premium Vehicle Collection" />
+        <CommonHading color="black" text="Elite Automotive Collection" />
         <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
-          Discover our exclusive range of high-performance vehicles
+          Experience unparalleled craftsmanship in our curated selection of
+          luxury vehicles
         </p>
       </div>
 

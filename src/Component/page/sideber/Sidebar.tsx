@@ -13,6 +13,8 @@ import {
   Menu,
   X,
   ListOrdered,
+  Contact,
+  Contact2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch } from "@/redux/hooks";
@@ -150,6 +152,18 @@ const Sidebar = () => {
       ],
       adminOnly: true,
     },
+    {
+      title: "Contact Management",
+      icon: <Contact2 className="w-5 h-5" />,
+      items: [
+        {
+          path: "/dashboard/all-contact",
+          label: "All Contact User",
+          icon: <Contact className="w-4 h-4" />,
+        },
+      ],
+      adminOnly: true,
+    },
   ];
 
   const profileMenu: CollapsibleMenu = {
@@ -236,7 +250,7 @@ const Sidebar = () => {
                   <li key={menu.title}>
                     <button
                       onClick={() => toggleMenu(menu.title)}
-                      className={`flex items-center justify-between w-full p-3 rounded-lg transition-all ${
+                      className={`flex items-center justify-between w-full p-1 rounded-lg transition-all ${
                         activeMenu === menu.title
                           ? "bg-white text-indigo-800"
                           : "hover:bg-[#424242d3]"
@@ -284,7 +298,7 @@ const Sidebar = () => {
               <li>
                 <button
                   onClick={() => toggleMenu("profile")}
-                  className={`flex items-center justify-between w-full p-3 rounded-lg transition-all ${
+                  className={`flex items-center justify-between w-full p-1 rounded-lg transition-all ${
                     activeMenu === "profile"
                       ? "bg-[#424242]"
                       : "hover:bg-[#424242d3]"

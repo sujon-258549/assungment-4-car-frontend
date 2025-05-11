@@ -16,7 +16,7 @@ import { BsFillFuelPumpFill } from "react-icons/bs";
 const DetailsCarPage = () => {
   const { _id } = useParams();
   const { data: car, isLoading } = useGetSingleCarQuery(_id as string);
-
+  console.log(car);
   if (isLoading) {
     return <Loader />;
   }

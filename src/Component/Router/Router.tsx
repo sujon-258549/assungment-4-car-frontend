@@ -30,6 +30,8 @@ import CreateOrder from "../page/Common/CreateOrder";
 import AllBlog from "../page/Common/AllBlog";
 import AllOfferCard from "../page/Common/AllOfferCard";
 import OrderDetails from "../page/DashboardMain/OrderDetails";
+import AllContactIInfo from "../page/dashboard/admin/contact/AllContactIInfo";
+import DetailsContact from "../page/dashboard/admin/contact/DetailsContact";
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +128,23 @@ export const router = createBrowserRouter([
           <ProtectedRoute role={["admin"]}>
             {" "}
             <CreateCar />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "all-contact",
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            {" "}
+            <AllContactIInfo />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "details-contact/:_id",
+        element: (
+          <ProtectedRoute role={["admin"]}>
+            <DetailsContact />
           </ProtectedRoute>
         ),
       },

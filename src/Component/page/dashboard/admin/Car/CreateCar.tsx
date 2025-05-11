@@ -17,7 +17,7 @@ const CreateCar = () => {
   const [createCar] = useCreateCarMutation();
   const navigate = useNavigate();
   const handleFileUpload = (uploadedFiles: File[]) => {
-    if (files.length < 3) {
+    if (files.length < 4) {
       setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
     }
   };

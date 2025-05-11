@@ -7,206 +7,250 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Check, Edit, Heart, Settings, ShoppingCart } from "lucide-react";
+import { Check, Edit, Heart, Settings, ShoppingCart, Star } from "lucide-react";
+import { useGetMeQuery } from "@/redux/features/auth/authApi";
+import { useGetMyOrderQuery } from "@/redux/features/auth/Admin/product";
+import { IOrder } from "@/types/order";
+import {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { Link } from "react-router-dom";
 
 export function UserDashboard() {
-  // Sample user data
-  const user = {
-    name: "Alex Johnson",
-    email: "alex.johnson@example.com",
-    role: "Premium Member",
-    joinDate: "January 2023",
-    avatar: "/avatars/01.png",
-  };
+  const { data: user } = useGetMeQuery("");
+  const { data: myorder } = useGetMyOrderQuery("");
+
+  const totalOrders = myorder?.data?.data || [];
+  const totalOrderLength = totalOrders.length;
+
+  // Order status counts
+  const paidOrders = totalOrders.filter(
+    (order: IOrder) => order.paymentStatus === "Paid"
+  ).length;
+
+  const pendingOrders = totalOrders.filter(
+    (order: IOrder) => order.paymentStatus === "Pending"
+  ).length;
+
+  const failedOrders = totalOrders.filter(
+    (order: IOrder) => order.paymentStatus === "Failed"
+  ).length;
+
+  // Prepare data for charts
+  const orderStatusData = [
+    { name: "Paid", value: paidOrders, color: "#10B981" },
+    { name: "Pending", value: pendingOrders, color: "#F59E0B" },
+    { name: "Failed", value: failedOrders, color: "#EF4444" },
+  ];
+
+  // Monthly order data
+  const monthlyOrderData = totalOrders.reduce(
+    (acc: Record<string, number>, order: IOrder) => {
+      const date = new Date(order.createdAt);
+      const month = date.toLocaleString("default", { month: "short" });
+      acc[month] = (acc[month] || 0) + 1;
+      return acc;
+    },
+    {}
+  );
+
+  const monthlyData = Object.entries(monthlyOrderData).map(
+    ([month, count]) => ({
+      month,
+      orders: count,
+    })
+  );
 
   // Stats data
   const stats = [
     {
       title: "Total Orders",
-      value: "47",
-      change: "+12%",
-      icon: "shoppingCart",
-    },
-    { title: "Wishlist Items", value: "18", change: "+5", icon: "heart" },
-    { title: "Reviews", value: "23", change: "+8", icon: "star" },
-    { title: "Loyalty Points", value: "1,250", change: "+150", icon: "award" },
-  ];
-
-  // Recent activity
-  const activity = [
-    {
-      id: "ACT-001",
-      action: "Order placed",
-      item: "Wireless Headphones",
-      date: "10 min ago",
-      status: "completed",
+      value: totalOrderLength,
+      icon: ShoppingCart,
+      change: "+12% from last month",
     },
     {
-      id: "ACT-002",
-      action: "Review submitted",
-      item: "Smart Watch",
-      date: "2 hours ago",
-      status: "completed",
+      title: "Successful Orders",
+      value: paidOrders,
+      icon: Check,
+      change: `${Math.round(
+        (paidOrders / totalOrderLength) * 100
+      )}% success rate`,
     },
     {
-      id: "ACT-003",
-      action: "Return requested",
-      item: "Running Shoes",
-      date: "1 day ago",
-      status: "pending",
-    },
-    {
-      id: "ACT-004",
-      action: "Payment method updated",
-      item: "VISA •••• 4242",
-      date: "2 days ago",
-      status: "completed",
+      title: "Pending Orders",
+      value: pendingOrders,
+      icon: Star,
+      change: `${Math.round(
+        (pendingOrders / totalOrderLength) * 100
+      )}% of total`,
     },
   ];
-
-  // Account completion
-  const completionItems = [
-    { label: "Profile Information", completed: true },
-    { label: "Shipping Address", completed: true },
-    { label: "Payment Method", completed: true },
-    { label: "Two-Factor Auth", completed: false },
-    { label: "Preferences", completed: false },
-  ];
-
-  const completionPercentage = Math.round(
-    (completionItems.filter((item) => item.completed).length /
-      completionItems.length) *
-      100
-  );
 
   return (
     <div className="space-y-6 p-6">
       {/* Profile Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
         <Avatar className="h-16 w-16">
-          <AvatarImage src={user.avatar} />
-          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+          <AvatarImage src={user?.profileImage} />
+          <AvatarFallback>
+            {user?.firstName?.[0]}
+            {user?.lastName?.[0]}
+          </AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold">{user.name}</h1>
+          <h1 className="text-2xl font-bold">
+            {user?.firstName} {user?.lastName}
+          </h1>
           <div className="flex items-center gap-2 mt-1">
-            <p className="text-muted-foreground">{user.email}</p>
-            <Badge variant="outline">{user.role}</Badge>
+            <p className="text-muted-foreground">{user?.email}</p>
+            <Badge variant="outline">{user?.role}</Badge>
           </div>
           <p className="text-sm text-muted-foreground mt-1">
-            Member since {user.joinDate}
+            Member since {new Date(user?.createdAt).toLocaleDateString()}
           </p>
         </div>
-        <Button variant="outline">
-          <Edit className="mr-2 h-4 w-4" />
-          Edit Profile
-        </Button>
+        <Link to={"/dashboard/update-profile"}>
+          <Button variant="outline">
+            <Edit className="mr-2 h-4 w-4" />
+            Edit Profile
+          </Button>
+        </Link>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {stats.map((stat) => (
           <Card key={stat.title}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">
                 {stat.title}
               </CardTitle>
-              <div className="h-4 w-4 text-muted-foreground">
-                {/* {[stat as keyof typeof Icons]({ className: "h-4 w-4" })} */}
-              </div>
+              <stat.icon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">
-                {stat.change} from last month
-              </p>
+              <p className="text-xs text-muted-foreground">{stat.change}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Main Content */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {/* Recent Activity */}
-        <Card className="md:col-span-2">
+      {/* Order Visualization Charts */}
+      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
+        {/* Order Status Pie Chart */}
+        <Card>
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle>Order Status Distribution</CardTitle>
           </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Action</TableHead>
-                  <TableHead>Item</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {activity.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell>{item.action}</TableCell>
-                    <TableCell>{item.item}</TableCell>
-                    <TableCell>{item.date}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={
-                          item.status === "completed" ? "default" : "secondary"
-                        }
-                      >
-                        {item.status}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+          <CardContent className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={orderStatusData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label={({ name, percent }) =>
+                    `${name}: ${(percent * 100).toFixed(0)}%`
+                  }
+                >
+                  {orderStatusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        {/* Account Completion */}
+        {/* Monthly Order Trend */}
         <Card>
           <CardHeader>
-            <CardTitle>Account Setup</CardTitle>
+            <CardTitle>Monthly Order Trend</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Profile Completion</span>
-                <span className="text-sm font-medium">
-                  {completionPercentage}%
-                </span>
-              </div>
-              <Progress value={completionPercentage} />
-            </div>
-
-            <div className="space-y-3">
-              {completionItems.map((item) => (
-                <div key={item.label} className="flex items-center">
-                  {item.completed ? (
-                    <Check className="h-4 w-4 text-green-500 mr-2" />
-                  ) : (
-                    <circle className="h-4 w-4 text-muted-foreground mr-2" />
-                  )}
-                  <span
-                    className={item.completed ? "" : "text-muted-foreground"}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <Button className="w-full" variant="outline">
-              Complete Setup
-            </Button>
+          <CardContent className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={monthlyData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="orders" fill="#8884d8" name="Orders" />
+              </BarChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
+
+      {/* Recent Orders Table */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Recent Orders</CardTitle>
+          <Link to={"/dashboard/my-order"}>
+            <Button variant="ghost" size="sm">
+              View All
+            </Button>
+          </Link>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Order ID</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {totalOrders.slice(0, 5).map((order: IOrder) => (
+                <TableRow key={order._id}>
+                  <TableCell className="font-medium">
+                    #{order._id.slice(-6).toUpperCase()}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(order.createdAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>${order.totalPrice?.toFixed(2)}</TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        order.paymentStatus === "Paid"
+                          ? "default"
+                          : order.paymentStatus === "Pending"
+                          ? "secondary"
+                          : "destructive"
+                      }
+                    >
+                      {order.paymentStatus}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
       {/* Quick Actions */}
       <div className="grid gap-4 md:grid-cols-3">

@@ -14,6 +14,10 @@ import {
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
+const formatPrice = (price: number): string => {
+  return `$${price.toFixed(2)}`;
+};
+
 const CreateOrder = () => {
   const [createOrders, { data: orderData, isSuccess }] =
     useCreateOrdersMutation();
@@ -98,7 +102,16 @@ const CreateOrder = () => {
     );
   }
 
-  const { brand, model, price, description, image, color, year } = data;
+  const {
+    brand,
+    model,
+    price,
+    originalPrice,
+    description,
+    image,
+    color,
+    year,
+  } = data;
 
   const getColorValue = (colorName: string) => {
     const lowerColor = colorName.toLowerCase();
@@ -209,16 +222,26 @@ const CreateOrder = () => {
 
             <div className="mt-6 p-4 bg-gray-50 rounded-xl">
               <div className="flex justify-between items-center">
-                <div>
+                <div className="space-y-1">
+                  {/* Label */}
                   <span className="text-sm font-medium text-gray-500">
                     Total Price
                   </span>
+
+                  {/* Main Price Display */}
                   <p className="text-3xl font-bold text-gray-900">
-                    ${(Number(price) * Number(inputQuantity)).toLocaleString()}
+                    {formatPrice(
+                      (Number(price) > 0
+                        ? Number(price)
+                        : Number(originalPrice)) * Number(inputQuantity)
+                    )}
                   </p>
+
+                  {/* Per-unit price (shown when quantity > 1) */}
                   {inputQuantity > 1 && (
                     <p className="text-sm text-gray-500">
-                      ${Number(price).toLocaleString()} each
+                      {formatPrice(Number(price > 0 ? price : originalPrice))}{" "}
+                      each
                     </p>
                   )}
                 </div>

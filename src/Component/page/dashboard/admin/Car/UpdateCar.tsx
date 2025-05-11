@@ -28,7 +28,9 @@ const UpdateCar = () => {
   const formattedNow = now.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:mm"
 
   const handleFileUpload = (uploadedFiles: File[]) => {
-    setFiles(uploadedFiles);
+    if (files.length < 4) {
+      setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+    }
   };
   const price = watch("price");
   console.log(price);
@@ -130,7 +132,7 @@ const UpdateCar = () => {
       const formData = new FormData();
       formData.append("data", JSON.stringify(carData));
 
-      for (let i = 0; i < Math.min(files.length, 3); i++) {
+      for (let i = 0; i < Math.min(files.length, 4); i++) {
         formData.append("images", files[i]);
       }
       const modifyData = {

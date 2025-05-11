@@ -1,10 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Footer from "@/Component/Layout/Footer";
 import Loader from "@/Component/Utils/Loader";
+import { useCreateContactMutation } from "@/redux/features/auth/Admin/contact";
 import { useGetMyShopQuery } from "@/redux/features/auth/Admin/shop";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Contact = () => {
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
   const { data: shop, isLoading } = useGetMyShopQuery("shop");
-
+  const [contact] = useCreateContactMutation();
   if (isLoading) {
     return <Loader />;
   }
@@ -12,6 +19,20 @@ const Contact = () => {
   if (!shop) {
     return <div className="text-center py-10">No shop data available</div>;
   }
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Login.............");
+    const userInfo = {
+      ...data,
+    };
+    try {
+      const res = await contact(userInfo).unwrap();
+      toast.success("User Login Successfully", { id: toastId, duration: 2000 });
+      navigate("/");
+    } catch (err) {
+      // @ts-expect-error data
+      toast.error(error?.data?.message, { id: toastId, duration: 2000 });
+    }
+  };
 
   return (
     <>
@@ -29,29 +50,67 @@ const Contact = () => {
                 Feel free to contact us and we will get back to you as soon as
                 possible
               </p>
-              <div className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="w-full p-3 rounded-lg bg-white border text-sm border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
-                />
-                <input
-                  type="email"
-                  placeholder="E-mail"
-                  className="w-full p-3 rounded-lg bg-white border text-sm border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
-                />
-                <textarea
-                  placeholder="Message"
-                  className="w-full px-3 pt-3 pb-16 rounded-lg bg-white border text-sm border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none resize-none"
-                  defaultValue={""}
-                />
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-2 font-[sans-serif]"
+              >
+                <label htmlFor="name">Name</label>
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    {...register("name", { required: true })}
+                    placeholder="Enter Name"
+                    className="px-4 py-3 mb-5 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+                  />
+                </div>
+
+                <label htmlFor="email">Email</label>
+                <div className="relative flex items-center">
+                  <input
+                    type="email"
+                    {...register("email", { required: true })}
+                    placeholder="Enter Email"
+                    className="px-4 py-3 mb-5 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+                  />
+                </div>
+
+                <label htmlFor="phone">Phone</label>
+                <div className="relative flex items-center">
+                  <input
+                    type="tel"
+                    {...register("phone", { required: true })}
+                    placeholder="Enter Phone Number"
+                    className="px-4 py-3 mb-5 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+                  />
+                </div>
+
+                <label htmlFor="address">Address</label>
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    {...register("address", { required: true })}
+                    placeholder="Enter Address"
+                    className="px-4 py-3 mb-5 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+                  />
+                </div>
+
+                <label htmlFor="message">Message</label>
+                <div className="relative flex items-center">
+                  <textarea
+                    {...register("message", { required: true })}
+                    placeholder="Enter Your Message"
+                    className="px-4 py-3 mb-5 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border outline-[#007bff] rounded transition-all"
+                    rows={4}
+                  />
+                </div>
+
                 <button
-                  type="button"
-                  className="w-full text-sm bg-[#424242] hover:bg-[#424242da] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                  type="submit"
+                  className="px-6 py-2.5 w-full !mt-8 text-sm bg-[#424242] hover:bg-[#424242da] text-white rounded active:bg-[#006bff]"
                 >
-                  Send
+                  Submit
                 </button>
-              </div>
+              </form>
             </div>
             <div className="space-y-8">
               <div

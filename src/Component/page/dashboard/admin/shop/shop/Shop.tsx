@@ -21,13 +21,11 @@ const ShopInfoCard = ({ data }: { data: any }) => {
     <section className="mx-5 mb-5 box-shadow rounded-md">
       <div className="bg-gradient-to-r from-[#424242] rounded-t-md to-[#424242d3] h-32 p-6 relative">
         <div className="absolute -bottom-12 left-6">
-          <div className="h-[105px] w-28 rounded-full border-2 border-white bg-white flex items-center justify-center shadow-lg">
+          <div className="h-[105px] w-28 rounded-ful  border-2 border-white bg-white flex items-center justify-center shadow-lg">
             <img
+              className="flex items-center justify-center"
               src={data?.shopLogo}
               alt="Shop Logo"
-              width={150}
-              height={50}
-              style={{ width: "150px", height: "100px", borderRadius: "100%" }}
             />
           </div>
         </div>
