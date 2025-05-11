@@ -26,16 +26,30 @@ A full-stack car marketplace designed for a seamless experience in browsing, pur
 
 ## 🛠️ Technologies Used
 
-| Layer      | Technology              | Version / Stack |
-|------------|--------------------------|------------------|
-| **Frontend** | React.js                | v18+             |
-|            | Tailwind CSS             | v3+              |
-|            | Redux Toolkit            | -                |
-| **Backend**  | Node.js                 | v18+             |
-|            | Express.js               | v4.18+           |
-|            | MongoDB + Mongoose       | -                |
-| **Other Tools** | Cloudinary (Image Hosting) | -          |
-|            | JWT (Auth)               | -                |
+| Layer         | Technology                    | Version / Stack     |
+|---------------|-------------------------------|----------------------|
+| **Frontend**  | React.js                      | v18+                |
+|               | Tailwind CSS                  | v3+                 |
+|               | TypeScript                    | v5.8.3              |
+|               | Redux Toolkit                 | Latest              |
+|               | React Hook Form               | v7.43.9             |
+|               | Ant Design                    | v5+                 |
+|               | shadcn/ui                     | Latest              |
+|               | Framer Motion (Animations)    | v10+                |
+|               | React Icons                   | v5+                 |
+| **Backend**   | Node.js                       | v18+                |
+|               | Express.js                    | v4.18+              |
+|               | TypeScript                    | v5.8.3              |
+|               | MongoDB + Mongoose            | v6.0+ / v7.6+       |
+|               | JWT (Authentication)          | Latest              |
+|               | Bcrypt.js (Password Hashing)  | Latest              |
+|               | dotenv (Env Management)       | v16+                |
+|               | CORS                          | v2.8.5              |
+|               | ts-node-dev                   | v2.0.0              |
+| **Other Tools** | Cloudinary (Image Hosting)   | Latest             |
+|               | ESLint + Prettier (Linting)   | Latest              |
+|               | Render (Backend Deployment)   | -                   |
+|               | Vercel (Frontend Deployment)  | -                   |
 
 ---
 
