@@ -200,7 +200,10 @@ export function ShopDashboard() {
                   }
                 >
                   {productDistribution.map(
-                    (entry: { name: string; value: number }, index: number) => (
+                    (
+                      _entry: { name: string; value: number },
+                      index: number
+                    ) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={COLORS[index % COLORS.length]}

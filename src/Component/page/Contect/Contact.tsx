@@ -26,7 +26,12 @@ const Contact = () => {
     };
     try {
       const res = await contact(userInfo).unwrap();
-      toast.success("User Login Successfully", { id: toastId, duration: 2000 });
+      if (res.data?.success) {
+        toast.success("User Login Successfully", {
+          id: toastId,
+          duration: 2000,
+        });
+      }
       navigate("/");
     } catch (err) {
       // @ts-expect-error data

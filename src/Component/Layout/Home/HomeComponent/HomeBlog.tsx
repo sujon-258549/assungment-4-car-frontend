@@ -28,7 +28,7 @@ const HomeBlog = () => {
       </div>
 
       <div className="grid grid-cols-1 mt-5 md:mt-10 lg:mt-16 mt5 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {blogs.map((blog: TBlog) => (
+        {blogs.slice(0, 8).map((blog: TBlog) => (
           <div
             key={blog._id}
             className="bg-black text-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
