@@ -117,7 +117,7 @@ const Sidebar = () => {
       icon: <ListOrdered className="w-5 h-5" />,
       items: [
         {
-          path: "/dashboard/all-orders",
+          path: "/dashboard/getallorder",
           label: "All Orders",
           icon: (
             <span className="w-4 h-4 flex items-center justify-center">+</span>
@@ -364,7 +364,7 @@ const Sidebar = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto bg-gray-50">
-        <div className="p-6">
+        <div className="">
           <Outlet />
         </div>
       </main>

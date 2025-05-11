@@ -53,8 +53,12 @@ const GetAllOrder = () => {
       title: "Image",
       dataIndex: ["productId", "image"],
       key: "image",
-      render: (image: string) => (
-        <img src={image[0]} alt="Car" className="w-20 h-14 rounded-md" />
+      render: (image: string[]) => (
+        <img
+          src={image?.[0]}
+          alt="Car"
+          className="w-20 h-14 rounded-md object-cover"
+        />
       ),
     },
     {

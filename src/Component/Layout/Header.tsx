@@ -45,9 +45,9 @@ const Header = () => {
             className={`lg:flex gap-x-5 
     max-lg:space-y-3 max-lg:fixed max-lg:bg-[#424242] max-lg:w-1/2 
     max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 
-    max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 
-    transform transition-transform duration-500 ease-in-out 
-    ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+    max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50
+    max-lg:transform max-lg:transition-transform max-lg:duration-500 max-lg:ease-in-out 
+    ${isMenuOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"}`}
           >
             {/* <div
             id="collapseMenu"
