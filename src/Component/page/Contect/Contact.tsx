@@ -20,7 +20,7 @@ const Contact = () => {
     return <div className="text-center py-10">No shop data available</div>;
   }
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Login.............");
+    const toastId = toast.loading("Loading.............", { duration: 2000 });
     const userInfo = {
       ...data,
     };
@@ -31,8 +31,8 @@ const Contact = () => {
           id: toastId,
           duration: 2000,
         });
+        navigate("/");
       }
-      navigate("/");
     } catch (err) {
       // @ts-expect-error data
       toast.error(error?.data?.message, { id: toastId, duration: 2000 });
