@@ -50,6 +50,7 @@ const LoginForm = () => {
       const res = await login(userInfo).unwrap();
       const user = varyFyToken(res?.data?.token);
       dispatch(setUser({ user: user, token: res.data.token }));
+      sessionStorage.setItem("justLoggedIn", "true");
       toast.success("User Login Successfully", { id: toastId, duration: 2000 });
       navigate("/");
     } catch (err) {

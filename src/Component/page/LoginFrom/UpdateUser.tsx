@@ -349,7 +349,10 @@ const UpdateUser = () => {
           </Form.Item>
 
           <div className="text-center mt-4">
-            <Link to="/profile" className="text-blue-600 hover:text-blue-800">
+            <Link
+              to="/dashboard/profile"
+              className="text-blue-600 hover:text-blue-800"
+            >
               Back to Profile
             </Link>
           </div>

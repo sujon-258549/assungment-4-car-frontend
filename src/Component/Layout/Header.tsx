@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footerimg from "./Footerimg";
 import { Link, NavLink } from "react-router-dom";
 import { MdOutlineLogin } from "react-icons/md";
@@ -21,7 +21,13 @@ const Header = () => {
   const userRole = useAppSelector(useCurrentUser) as TUser;
 
   const email = userRole?.email;
-
+  useEffect(() => {
+    const justLoggedIn = sessionStorage.getItem("justLoggedIn");
+    if (justLoggedIn) {
+      sessionStorage.removeItem("justLoggedIn");
+      window.location.reload();
+    }
+  }, []);
   return (
     <section
       style={{ zIndex: "250" }}

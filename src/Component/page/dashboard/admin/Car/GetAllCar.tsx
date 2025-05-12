@@ -95,8 +95,9 @@ const GetAllCar = () => {
     },
     {
       title: "Price ($)",
-      dataIndex: "price",
       key: "price",
+      render: (record: { price: any; originalPrice: any }) =>
+        record.price ? record.price : record.originalPrice,
     },
     {
       title: "isOffer",
