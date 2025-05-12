@@ -45,8 +45,11 @@ const Profile = () => {
   };
 
   return (
-    <Card className="max-w-5xl mx-auto overflow-hidden">
-      <CardHeader className="bg-gradient-to-br from-cyan-950 to-cyan-600 text-white p-8 text-center relative">
+    <Card
+      style={{ boxShadow: "10px 10px 10px" }}
+      className="max-w-5xl mx-auto overflow-hidden shadow-2xl md:m-10 m-5"
+    >
+      <CardHeader className="rounded-t-md bg-gradient-to-br from-cyan-950 to-cyan-600 text-white p-8 text-center relative">
         <div className="flex flex-col items-center">
           <Avatar className="h-24 w-24 border-4 border-white mb-4">
             <AvatarImage

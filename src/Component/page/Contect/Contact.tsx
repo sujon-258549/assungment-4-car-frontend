@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Footer from "@/Component/Layout/Footer";
 import Loader from "@/Component/Utils/Loader";
@@ -21,21 +22,23 @@ const Contact = () => {
   }
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Loading.............", { duration: 2000 });
-    const userInfo = {
-      ...data,
-    };
+
+    const userInfo = { ...data };
+
     try {
-      const res = await contact(userInfo).unwrap();
-      if (res.data?.success) {
-        toast.success("User Login Successfully", {
+      const result = await contact(userInfo).unwrap();
+      if (result?.success) {
+        toast.success("Contact created successfully", {
           id: toastId,
           duration: 2000,
         });
         navigate("/");
       }
-    } catch (err) {
-      // @ts-expect-error data
-      toast.error(error?.data?.message, { id: toastId, duration: 2000 });
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Something went wrong", {
+        id: toastId,
+        duration: 2000,
+      });
     }
   };
 
