@@ -30,11 +30,12 @@ const HomeBlog = () => {
       <div className="grid grid-cols-1 mt-5 md:mt-10 lg:mt-16 mt5 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {blogs.slice(0, 8).map((blog: TBlog) => (
           <div
+            style={{ boxShadow: "1px 1px 5px #000" }}
             key={blog._id}
-            className="bg-black text-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            className="bg-black  text-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
             {/* Blog Image */}
-            <div className="h-48 overflow-hidden">
+            <div className="h-48 overflow-hidden bg-black">
               <img
                 src={blog.imageUrl}
                 alt={blog.title}
@@ -56,7 +57,7 @@ const HomeBlog = () => {
               </h3>
 
               <p className="text-gray-200 mb-4 line-clamp-2">
-                {blog?.excerpt.slice(0, 30)}
+                {blog?.excerpt.slice(0, 20)}
               </p>
 
               <div className="flex justify-between items-center">
