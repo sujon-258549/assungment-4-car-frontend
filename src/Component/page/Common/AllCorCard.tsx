@@ -235,7 +235,6 @@ const AllCorCard = () => {
 
                 {/* Content */}
                 <div className="p-5 text-white">
-                  lorem
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <h3 className="text-xl font-bold">{car.brand}</h3>
